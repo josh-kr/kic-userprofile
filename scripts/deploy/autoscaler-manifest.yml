@@ -1,0 +1,17 @@
+---
+instance_limits:
+  min: 2
+  max: 4
+rules:
+#http_latency thresholds are in milliseconds
+  - rule_type: "http_latency"
+    rule_sub_type: "avg_99th"
+    threshold:
+      min: 100
+      max: 500
+scheduled_limit_changes: []
+#  - recurrence: 10
+#    executes_at: "2032-01-01T00:00:00Z"
+#    instance_limits:
+#      min: 10
+#      max: 20

@@ -1,0 +1,13 @@
+---
+spring:
+  profiles:
+    active: default
+---
+spring:
+  profiles: local
+---
+spring:
+  profiles: cloud
+---
+spring:
+  profiles: unittest

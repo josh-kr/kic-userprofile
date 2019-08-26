@@ -1,0 +1,13 @@
+---
+applications:
+  - name: 
+    memory: 1G
+    disk_quota: 1G
+    timeout: 60
+    instances: 2
+    buildpacks:
+      - java_buildpack_offline
+    services:
+      - -encryptionkey
+      - -auth
+      - -db

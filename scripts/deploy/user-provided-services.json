@@ -1,0 +1,188 @@
+{
+  "environments": [
+    {
+      "name": "dev",
+      "userProvidedServices": [
+        {
+          "name": "-encryptionkey",
+          "content": {
+            "encryptedKey": "${ENC_KEY}"
+          }
+        },
+        {
+          "name": "-auth",
+          "content": {
+            "clientId": "--dev",
+            "clientSecret": "${CLIENT_SECRET_IN_TEAM_CITY}",
+            "defaultTargetUri": "https://dev.kroger.com",
+            "identityServerUri": "https://identity.kroger.com"
+           }
+        },
+        {
+          "name": "-db",
+          "content": {
+            "url": "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",
+            "username": "sa",
+            "password": "",
+            "driver": "org.h2.Driver",
+            "maximum-pool-size": "50",
+            "minimum-idle": "3",
+            "connection-timeout": "30000"
+           }
+        }
+      ],
+      "zones": [
+        {
+          "org": "KIC",
+          "api": "api.cfhdcinternaltest.kroger.com",
+          "space": "--dev",
+          "name": "cfhdcinternaltest.kroger.com"
+        },
+        {
+          "org": "KIC",
+          "api": "api.cfcdcinternaltest.kroger.com",
+          "space": "--dev",
+          "name": "cfcdcinternaltest.kroger.com"
+        }
+      ]
+    },
+    {
+      "name": "test",
+      "userProvidedServices": [
+        {
+          "name": "-encryptionkey",
+          "content": {
+            "encryptedKey": "${ENC_KEY}"
+          }
+        },
+        {
+          "name": "-auth",
+          "content": {
+            "clientId": "--test",
+            "clientSecret": "${CLIENT_SECRET_IN_TEAM_CITY}",
+            "defaultTargetUri": "https://test.kroger.com",
+            "identityServerUri": "https://identity.kroger.com"
+           }
+        },
+        {
+          "name": "-db",
+          "content": {
+            "url": "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",
+            "username": "sa",
+            "password": "",
+            "driver": "org.h2.Driver",
+            "maximum-pool-size": "50",
+            "minimum-idle": "3",
+            "connection-timeout": "30000"
+           }
+        }
+      ],
+      "zones": [
+        {
+          "org": "KIC",
+          "api": "api.cfhdcinternaltest.kroger.com",
+          "space": "--test",
+          "name": "cfhdcinternaltest.kroger.com"
+        },
+        {
+          "org": "KIC",
+          "api": "api.cfcdcinternaltest.kroger.com",
+          "space": "--test",
+          "name": "cfcdcinternaltest.kroger.com"
+        }
+      ]
+    },
+    {
+      "name": "stage",
+      "userProvidedServices": [
+        {
+          "name": "-encryptionkey",
+          "content": {
+            "encryptedKey": "${ENC_KEY}"
+          }
+        },
+        {
+          "name": "-auth",
+          "content": {
+            "clientId": "--stage",
+            "clientSecret": "${CLIENT_SECRET_IN_TEAM_CITY}",
+            "defaultTargetUri": "https://stage.kroger.com",
+            "identityServerUri": "https://identity.kroger.com"
+           }
+        },
+        {
+          "name": "-db",
+          "content": {
+            "url": "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",
+            "username": "sa",
+            "password": "",
+            "driver": "org.h2.Driver",
+            "maximum-pool-size": "100",
+            "minimum-idle": "5",
+            "connection-timeout": "30000"
+           }
+        }
+       ],
+      "zones": [
+        {
+          "org": "KIC",
+          "api": "api.cfhdcinternaltest.kroger.com",
+          "space": "--stage",
+          "name": "cfhdcinternaltest.kroger.com"
+        },
+        {
+          "org": "KIC",
+          "api": "api.cfcdcinternaltest.kroger.com",
+          "space": "--stage",
+          "name": "cfcdcinternaltest.kroger.com"
+        }
+      ]
+    },
+    {
+      "name": "prod",
+      "userProvidedServices": [
+        {
+          "name": "-encryptionkey",
+          "content": {
+            "encryptedKey": "${ENC_KEY}"
+          }
+        },
+        {
+          "name": "-auth",
+          "content": {
+            "clientId": "--prod",
+            "clientSecret": "${CLIENT_SECRET_IN_TEAM_CITY}",
+            "defaultTargetUri": "https://.kroger.com",
+            "identityServerUri": "https://identity.kroger.com"
+           }
+        },
+        {
+          "name": "-db",
+          "content": {
+            "url": "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",
+            "username": "sa",
+            "password": "",
+            "driver": "org.h2.Driver",
+            "maximum-pool-size": "100",
+            "minimum-idle": "5",
+            "connection-timeout": "30000"
+           }
+        }
+      ],
+      "zones": [
+        {
+          "org": "KIC",
+          "api": "api.cfcdcinternal.kroger.com",
+          "space": "--prod",
+          "name": "cfcdcinternal.kroger.com"
+        },
+        {
+          "org": "KIC",
+          "api": "api.cfhdcinternal.kroger.com",
+          "space": "--prod",
+          "name": "cfhdcinternal.kroger.com"
+        }
+      ]
+    }
+  ]
+}
