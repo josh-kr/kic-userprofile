@@ -7,7 +7,7 @@
 /target
 /tmp
 /out-tsc
-
+.DS_Store
 # dependencies
 /node
 /node_modules

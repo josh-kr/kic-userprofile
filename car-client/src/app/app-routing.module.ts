@@ -5,6 +5,7 @@ import { StartingPageComponent } from './home/starting-page/starting-page.compon
 import { HomePageComponent } from './home/home-page/home-page.component';
 import { LogoutComponent } from './core/logout/logout.component';
 import { AuthGuard } from './auth.guard';
+import { CarListingsComponent } from './pages/car-listings/car-listings.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'logout',
     component: LogoutComponent
+  },
+  {
+    path: 'cars',
+    component: CarListingsComponent
   },
   {
     path: '**',

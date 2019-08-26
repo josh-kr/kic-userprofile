@@ -26,6 +26,9 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/bootstrap-less/bootstrap/bootstrap.less",
               "node_modules/kroger-bootstrap-less/less/kroger-bootstrap-styles.less",
+              "node_modules/kds-stencil/dist/kds-reset.css",
+              "node_modules/kds-stencil/dist/kds-utils.css",
+              "node_modules/@ers-component-lib/components/assets/styles/ers-next-styles.less",
               "src/styles.less"
             ],
             "scripts": [
