@@ -1,14 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 
+export interface Car {
+  name: string;
+  milesPerGallon: number;
+  cylinders: number;
+  displacement: number;
+  horsepower: number;
+  weight_in_lbs: number;
+  acceleration: number;
+  year: string;
+  origin: string;
+}
+
 @Component({
   selector: 'app-car-listings',
   templateUrl: './car-listings.component.html',
   styleUrls: ['./car-listings.component.less']
 })
 export class CarListingsComponent implements OnInit {
-  headers = [];
 
-  data = [
+  public carList: Car[] = [
     {
       name: 'chevrolet chevelle malibu',
       milesPerGallon: 18,
@@ -109,46 +120,17 @@ export class CarListingsComponent implements OnInit {
       origin: 'USA'
     }
   ];
-  isResizable = true;
-  defaultTemplateString = `<ers-datatable [headers]="headers" [data]="data"
-  [isResizable]="isResizable"
-  [sortable]="true"
-  [paginatorOptions]="paginatorOptions"
-  ></ers-datatable>`;
-  templateStr = this.defaultTemplateString;
-  itemsPerPageList = [{
-    label: '5',
-    value: 5
-  }, {
-    label: '10',
-    value: 10
-  },
-  {
-    label: '25',
-    value: 25
-  },
-  {
-    label: 'All',
-    value: 'all'
-  }
-  ];
-  paginatorOptions = this.setOptions();
+
+  constructor(
+  ) { }
 
   ngOnInit() {
-    this.headers = Object.keys(this.data[0]).map((key) => ({
-      field: key,
-      displayValue: key.replace(/_\w/g, (m) => m[1].toUpperCase()).replace(/([A-Z])/g, ' $1')
-    }));
+    console.log('carList', this.carList);
   }
 
-  setOptions() {
-    return this.paginatorOptions = {
-      displayPaginator: 'both',
-      itemsPerPageDropdown: true,
-      itemsPerPage: 5,
-      displayTotalItems: 'both',
-      displayItemsPerPage: 'bottom',
-      itemsPerPageList: this.itemsPerPageList
-    };
+
+  deleteCar(car) {
+
   }
+
 }
