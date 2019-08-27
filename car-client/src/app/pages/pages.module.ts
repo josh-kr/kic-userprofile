@@ -2,15 +2,22 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { CarListingsComponent } from './car-listings/car-listings.component';
 import { TableModule } from 'primeng/table';
+// import { PaginatorModule } from 'primeng/paginator';
 import { PaginatorModule } from '@ers-component-lib/components';
-
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from '../app-routing.module';
 @NgModule({
   declarations: [CarListingsComponent],
   imports: [
     CommonModule,
+    AppRoutingModule,
+    RouterModule,
+    HttpClientModule,
     TableModule,
-    PaginatorModule
+    PaginatorModule,
+    RouterModule
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+  // schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class PagesModule { }

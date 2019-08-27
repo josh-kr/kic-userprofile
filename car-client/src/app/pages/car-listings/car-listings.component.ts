@@ -19,7 +19,7 @@ export interface Car {
 })
 export class CarListingsComponent implements OnInit {
 
-  public carList: Car[] = [
+  public cars: Car[] = [
     {
       name: 'chevrolet chevelle malibu',
       milesPerGallon: 18,
@@ -120,12 +120,14 @@ export class CarListingsComponent implements OnInit {
       origin: 'USA'
     }
   ];
+  public carList;
 
   constructor(
   ) { }
 
   ngOnInit() {
-    console.log('carList', this.carList);
+    console.log('carList', this.cars);
+    this.carList = this.cars;
   }
 
 

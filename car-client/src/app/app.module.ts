@@ -12,6 +12,8 @@ import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
 import { PagesModule } from './pages/pages.module';
 import { KdsStencilAccessorsModule } from 'kds-stencil-accessors';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import { KdsStencilAccessorsModule } from 'kds-stencil-accessors';
     NoopAnimationsModule,
     AppRoutingModule,
     RouterModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     KrogerNotificationsModule.forRoot(),
     CoreModule,
     HomeModule,
