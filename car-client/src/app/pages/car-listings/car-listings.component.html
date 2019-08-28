@@ -5,7 +5,12 @@
   <div class="row">
     <div class="col-md-12">
       <div class="table-scrollable">
-        <p-table #dt [value]="carList" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [rows]="10">
+        <ers-paginator class="paginator-top"  [itemsPerPage]="paginatorOptions.itemsPerPage"
+          [totalItems]="carList.length" [itemsPerPageList]="paginatorOptions.itemsPerPageList"
+          (pageChanged)="_handlePageChange($event)" [displayTotalItems]="true"
+          [displayItemsPerPage]="true">
+        </ers-paginator>
+        <p-table #dt [value]="carList" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [rows]="paginatorOptions.itemsPerPage">
           <ng-template pTemplate="header">
             <tr>
               <th>Car</th>

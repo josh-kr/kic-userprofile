@@ -19,6 +19,15 @@ export interface Car {
 })
 export class CarListingsComponent implements OnInit {
 
+  public paginatorOptions = {
+    displayPaginator: true,
+    itemsPerPageDropdown: true,
+    itemsPerPage: 5,
+    displayTotalItems: 'both',
+    displayItemsPerPage: 'both',
+    itemsPerPageList: null,
+  };
+
   public cars: Car[] = [
     {
       name: 'chevrolet chevelle malibu',
@@ -132,6 +141,10 @@ export class CarListingsComponent implements OnInit {
 
 
   deleteCar(car) {
+
+  }
+
+  _handlePageChange(event) {
 
   }
 
