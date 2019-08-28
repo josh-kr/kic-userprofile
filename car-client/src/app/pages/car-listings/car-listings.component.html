@@ -4,39 +4,45 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <div class="table-scrollable">
-        <ers-paginator class="paginator-top"  [itemsPerPage]="paginatorOptions.itemsPerPage"
-          [totalItems]="carList.length" [itemsPerPageList]="paginatorOptions.itemsPerPageList"
-          (pageChanged)="_handlePageChange($event)" [displayTotalItems]="true"
-          [displayItemsPerPage]="true">
-        </ers-paginator>
-        <p-table #dt [value]="carList" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [rows]="paginatorOptions.itemsPerPage">
-          <ng-template pTemplate="header">
-            <tr>
-              <th>Car</th>
-              <th>Origin</th>
-              <th>Year</th>
-              <th></th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-car>
-            <tr>
-              <td>{{car.name}}</td>
-              <td>{{car.origin}}</td>
-              <td>{{car.year}}</td>
-              <td>
-                <a class="btn dark btn-sm btn-outline sbold uppercase" style="margin:1px;"
-                  [routerLink]="['/cars/detail', car.name]">
-                  <i class="fa fa-edit"></i> Edit
-                </a>
-                <button type="button" class="btn red btn-sm btn-outline sbold uppercase" style="margin:1px;"
-                  (click)="deleteCar(car)">
-                  <i class="fa fa-trash"></i> Delete
-                </button>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
+      <ers-paginator class="paginator-top" [itemsPerPage]="paginatorOptions.itemsPerPage" [totalItems]="carList.length"
+        [itemsPerPageList]="paginatorOptions.itemsPerPageList" (pageChanged)="_handlePageChange($event)"
+        [displayTotalItems]="true" [displayItemsPerPage]="true">
+      </ers-paginator>
+      <p-table #dt [value]="carList" [paginator]="true" [rowsPerPageOptions]="[10,20,30]"
+        [rows]="paginatorOptions.itemsPerPage">
+        <ng-template pTemplate="header">
+          <tr>
+            <th [pSortableColumn]="'name'">
+              Car
+              <kds-icon-sort *ngIf="!_isFieldSorted('name')"></kds-icon-sort>
+              <kds-icon-up-arrow *ngIf="_isFieldSorted('name') && _isAscendingSortOrder('name')"></kds-icon-up-arrow>
+              <kds-icon-down-arrow *ngIf="_isFieldSorted('name') && !_isAscendingSortOrder('name')">
+              </kds-icon-down-arrow>
+            </th>
+            <th [pSortableColumn]="'milesPerGallon'">Mileage<kds-icon-sort></kds-icon-sort>
+            </th>
+            <th [pSortableColumn]="'cylinders'">Engine<kds-icon-sort></kds-icon-sort>
+            </th>
+            <th [pSortableColumn]="'year'">Year<kds-icon-sort></kds-icon-sort>
+            </th>
+            <th [pSortableColumn]="'origin'">Made In<kds-icon-sort></kds-icon-sort>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-car>
+          <tr class="ers-data-row">
+            <td>{{car['name']}}</td>
+            <td>{{car['milesPerGallon']}}</td>
+            <td>{{car['cylinders']}}</td>
+            <td>{{car['year']}}</td>
+            <td>{{car['origin']}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <ers-paginator class="paginator-bottom" [itemsPerPageDropdown]="paginatorOptions.itemsPerPageDropdown"
+        [itemsPerPage]="paginatorOptions.itemsPerPage" [totalItems]="carList.length"
+        [itemsPerPageList]="paginatorOptions.itemsPerPageList" (pageChanged)="_handlePageChange($event)"
+        [displayTotalItems]="true" [displayItemsPerPage]="true">
+      </ers-paginator>
     </div>
   </div>

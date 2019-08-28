@@ -28,6 +28,10 @@ export class CarListingsComponent implements OnInit {
     itemsPerPageList: null,
   };
 
+  public first = 0;
+  public currentPage = 1;
+  public sortMeta: any = {};
+
   public cars: Car[] = [
     {
       name: 'chevrolet chevelle malibu',
@@ -147,5 +151,7 @@ export class CarListingsComponent implements OnInit {
   _handlePageChange(event) {
 
   }
-
+  _isFieldSorted(field) {
+    return this.sortMeta.field === field;
+  }
 }

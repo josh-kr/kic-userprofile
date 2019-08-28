@@ -18,6 +18,6 @@ import { AppRoutingModule } from '../app-routing.module';
     PaginatorModule,
     RouterModule
   ],
-  // schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class PagesModule { }
