@@ -70,6 +70,7 @@ public class OAuthResourceConfiguration extends OAuth2ResourceConfigurationSuppo
     {
         // @formatter:off
         krogerSecurityProperties.permitAllWebResources(http);
+        http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/api/me", "/api/spoofing").permitAll()
                 .antMatchers("/manage/health", "/manage/info", "/manage/keepalive").permitAll()
