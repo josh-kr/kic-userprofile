@@ -8,8 +8,8 @@
         [itemsPerPageList]="paginatorOptions.itemsPerPageList" (pageChanged)="_handlePageChange($event)"
         [displayTotalItems]="true" [displayItemsPerPage]="true">
       </ers-paginator>
-      <p-table #dt [value]="carList" [paginator]="true" [rowsPerPageOptions]="[10,20,30]"
-        [rows]="paginatorOptions.itemsPerPage">
+      <p-table #dt [value]="carList" [rows]="paginatorOptions.itemsPerPage" [paginator]="true" [first]="first"
+	  (onSort)="_sortHandler($event)">
         <ng-template pTemplate="header">
           <tr>
             <th [pSortableColumn]="'name'">

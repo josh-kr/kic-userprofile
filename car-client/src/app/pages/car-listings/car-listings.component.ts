@@ -131,6 +131,105 @@ export class CarListingsComponent implements OnInit {
       acceleration: 10,
       year: '1970-01-01',
       origin: 'USA'
+    },
+    {
+      name: 'chevrolet impala',
+      milesPerGallon: 14,
+      cylinders: 8,
+      displacement: 454,
+      horsepower: 220,
+      weight_in_lbs: 4354,
+      acceleration: 9,
+      year: '1970-01-01',
+      origin: 'USA'
+    },
+    {
+      name: 'plymouth fury iii',
+      milesPerGallon: 14,
+      cylinders: 8,
+      displacement: 440,
+      horsepower: 215,
+      weight_in_lbs: 4312,
+      acceleration: 8.5,
+      year: '1970-01-01',
+      origin: 'USA'
+    },
+    {
+      name: 'pontiac catalina',
+      milesPerGallon: 14,
+      cylinders: 8,
+      displacement: 455,
+      horsepower: 225,
+      weight_in_lbs: 4425,
+      acceleration: 10,
+      year: '1970-01-01',
+      origin: 'USA'
+    },
+    {
+      name: 'chevrolet impala',
+      milesPerGallon: 14,
+      cylinders: 8,
+      displacement: 454,
+      horsepower: 220,
+      weight_in_lbs: 4354,
+      acceleration: 9,
+      year: '1970-01-01',
+      origin: 'USA'
+    },
+    {
+      name: 'plymouth fury iii',
+      milesPerGallon: 14,
+      cylinders: 8,
+      displacement: 440,
+      horsepower: 215,
+      weight_in_lbs: 4312,
+      acceleration: 8.5,
+      year: '1970-01-01',
+      origin: 'USA'
+    },
+    {
+      name: 'pontiac catalina',
+      milesPerGallon: 14,
+      cylinders: 8,
+      displacement: 455,
+      horsepower: 225,
+      weight_in_lbs: 4425,
+      acceleration: 10,
+      year: '1970-01-01',
+      origin: 'USA'
+    },
+    {
+      name: 'chevrolet impala',
+      milesPerGallon: 14,
+      cylinders: 8,
+      displacement: 454,
+      horsepower: 220,
+      weight_in_lbs: 4354,
+      acceleration: 9,
+      year: '1970-01-01',
+      origin: 'USA'
+    },
+    {
+      name: 'plymouth fury iii',
+      milesPerGallon: 14,
+      cylinders: 8,
+      displacement: 440,
+      horsepower: 215,
+      weight_in_lbs: 4312,
+      acceleration: 8.5,
+      year: '1970-01-01',
+      origin: 'USA'
+    },
+    {
+      name: 'pontiac catalina',
+      milesPerGallon: 14,
+      cylinders: 8,
+      displacement: 455,
+      horsepower: 225,
+      weight_in_lbs: 4425,
+      acceleration: 10,
+      year: '1970-01-01',
+      origin: 'USA'
     }
   ];
   public carList;
@@ -149,9 +248,22 @@ export class CarListingsComponent implements OnInit {
   }
 
   _handlePageChange(event) {
-
+    this.currentPage = event.currentPage;
+    this.paginatorOptions.itemsPerPage = event.itemsPerPage;
+    this.first = (this.currentPage - 1) * this.paginatorOptions.itemsPerPage;
   }
   _isFieldSorted(field) {
     return this.sortMeta.field === field;
+  }
+  _isAscendingSortOrder(field) {
+    if (this.sortMeta.field === field && this.sortMeta.order == 1) {
+      return true;
+    }
+    if (this.sortMeta.field === field && this.sortMeta.order == 0) {
+      return false;
+    }
+  }
+  _sortHandler(event) {
+    this.sortMeta = event;
   }
 }
