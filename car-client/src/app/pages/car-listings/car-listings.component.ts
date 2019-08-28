@@ -22,7 +22,7 @@ export class CarListingsComponent implements OnInit {
   public paginatorOptions = {
     displayPaginator: true,
     itemsPerPageDropdown: true,
-    itemsPerPage: 5,
+    itemsPerPage: 10,
     displayTotalItems: 'both',
     displayItemsPerPage: 'both',
     itemsPerPageList: null,
