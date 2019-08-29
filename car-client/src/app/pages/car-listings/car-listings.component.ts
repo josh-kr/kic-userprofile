@@ -72,14 +72,25 @@ export class CarListingsComponent implements OnInit {
   }
 
   _handlePageChange(event) {
+    console.log('page change event', event);
     this.currentPage = event.currentPage;
     this.paginatorOptions.itemsPerPage = event.itemsPerPage;
     this.first = (this.currentPage - 1) * this.paginatorOptions.itemsPerPage;
+    this.filter.next(
+      {
+        page: {
+          offset: this.first,
+          size: this.paginatorOptions.itemsPerPage,
+        }
+      }
+    );
   }
   _isFieldSorted(field) {
+    // console.log('is field sorted', field);
     return this.sortMeta.field === field;
   }
   _isAscendingSortOrder(field) {
+    console.log('is ascending sort order', field);
     if (this.sortMeta.field === field && this.sortMeta.order === 1) {
       return true;
     }
@@ -88,6 +99,7 @@ export class CarListingsComponent implements OnInit {
     }
   }
   _sortHandler(event) {
+    console.log('sort handler', event);
     this.sortMeta = event;
   }
 }
