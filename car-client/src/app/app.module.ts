@@ -14,6 +14,7 @@ import { PagesModule } from './pages/pages.module';
 import { KdsStencilAccessorsModule } from 'kds-stencil-accessors';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CarService } from './services/car.service';
 
 
 @NgModule({
@@ -33,7 +34,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     PagesModule,
     KdsStencilAccessorsModule
   ],
-  providers: [KrogerNotificationsService],
+  providers: [
+    KrogerNotificationsService,
+    CarService
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })

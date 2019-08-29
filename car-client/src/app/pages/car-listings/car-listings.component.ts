@@ -238,7 +238,6 @@ export class CarListingsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('carList', this.cars);
     this.carList = this.cars;
   }
 
@@ -256,10 +255,10 @@ export class CarListingsComponent implements OnInit {
     return this.sortMeta.field === field;
   }
   _isAscendingSortOrder(field) {
-    if (this.sortMeta.field === field && this.sortMeta.order == 1) {
+    if (this.sortMeta.field === field && this.sortMeta.order === 1) {
       return true;
     }
-    if (this.sortMeta.field === field && this.sortMeta.order == 0) {
+    if (this.sortMeta.field === field && this.sortMeta.order === 0) {
       return false;
     }
   }
