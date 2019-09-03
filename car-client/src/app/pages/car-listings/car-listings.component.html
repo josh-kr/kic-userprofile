@@ -1,31 +1,60 @@
 <div class="container cf">
   <div class="page-header">
-    <h1>Cars Listing page <small>Subtext for greater value</small></h1>
+		<h1><kds-icon-delivery size="xl"></kds-icon-delivery> Cars Listing page 
+	</h1>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <ers-paginator class="paginator-top" [itemsPerPage]="paginatorOptions.itemsPerPage" [totalItems]="(page | async)?.data.cars.length"
-        [itemsPerPageList]="paginatorOptions.itemsPerPageList" (pageChanged)="_handlePageChange($event)"
-        [displayTotalItems]="true" [displayItemsPerPage]="true">
-      </ers-paginator>
-      <p-table #dt [value]="(page | async)?.data.cars" [rows]="paginatorOptions.itemsPerPage" [paginator]="true" [first]="first"
+	  <!-- <ers-paginator class="paginator-top"
+	   [items]="(page | async)?.data.cars" 
+	   [currentPage]="1" 
+	   [itemsPerPage]="paginatorOptions.itemsPerPage" 
+	   [itemsPerPageList]="paginatorOptions.itemsPerPageList"
+	   [totalItems]="(page | async)?.meta.totalElements" 
+	   [itemsPerPageList]="paginatorOptions.itemsPerPageList" 
+	   [displayTotalItems]="paginatorOptions.displayTotalItems" 
+	   [displayItemsPerPage]="paginatorOptions.displayItemsPerPage"
+        (pageChanged)="_handlePageChange($event)" >
+      </ers-paginator> -->
+	  <p-table #dt 
+	  [value]="(page | async)?.data.cars" 
+	  [rows]="paginatorOptions.itemsPerPage" 
+	  [paginator]="true"
+	  [lazy]="true" 
+	  [first]="first" 
 	  (onSort)="_sortHandler($event)">
         <ng-template pTemplate="header">
           <tr>
-            <th [pSortableColumn]="'name'">
+            <th [pSortableColumn]="'make'">
               Make
-              <kds-icon-sort *ngIf="!_isFieldSorted('name')"></kds-icon-sort>
-              <kds-icon-up-arrow *ngIf="_isFieldSorted('name') && _isAscendingSortOrder('name')"></kds-icon-up-arrow>
-              <kds-icon-down-arrow *ngIf="_isFieldSorted('name') && !_isAscendingSortOrder('name')">
+              <kds-icon-sort *ngIf="!_isFieldSorted('make')"></kds-icon-sort>
+              <kds-icon-up-arrow *ngIf="_isFieldSorted('make') && _isAscendingSortOrder('make')"></kds-icon-up-arrow>
+              <kds-icon-down-arrow *ngIf="_isFieldSorted('make') && !_isAscendingSortOrder('make')">
               </kds-icon-down-arrow>
             </th>
-            <th [pSortableColumn]="'milesPerGallon'">Model<kds-icon-sort></kds-icon-sort>
+            <th [pSortableColumn]="'model'">Model
+              <kds-icon-sort *ngIf="!_isFieldSorted('model')"></kds-icon-sort>
+              <kds-icon-up-arrow *ngIf="_isFieldSorted('model') && _isAscendingSortOrder('model')"></kds-icon-up-arrow>
+              <kds-icon-down-arrow *ngIf="_isFieldSorted('model') && !_isAscendingSortOrder('model')">
+              </kds-icon-down-arrow>
             </th>
-            <th [pSortableColumn]="'cylinders'">Color<kds-icon-sort></kds-icon-sort>
+            <th [pSortableColumn]="'color'">Color
+              <kds-icon-sort *ngIf="!_isFieldSorted('color')"></kds-icon-sort>
+              <kds-icon-up-arrow *ngIf="_isFieldSorted('color') && _isAscendingSortOrder('color')"></kds-icon-up-arrow>
+              <kds-icon-down-arrow *ngIf="_isFieldSorted('color') && !_isAscendingSortOrder('color')">
+              </kds-icon-down-arrow>
             </th>
-            <th [pSortableColumn]="'year'">Year<kds-icon-sort></kds-icon-sort>
+            <th [pSortableColumn]="'year'">Year
+              <kds-icon-sort *ngIf="!_isFieldSorted('year')"></kds-icon-sort>
+              <kds-icon-up-arrow *ngIf="_isFieldSorted('year') && _isAscendingSortOrder('year')"></kds-icon-up-arrow>
+              <kds-icon-down-arrow *ngIf="_isFieldSorted('year') && !_isAscendingSortOrder('year')">
+              </kds-icon-down-arrow>
             </th>
-            <th [pSortableColumn]="'origin'">VIN<kds-icon-sort></kds-icon-sort>
+            <th [pSortableColumn]="'vin'">VIN
+              <kds-icon-sort *ngIf="!_isFieldSorted('vin')"></kds-icon-sort>
+              <kds-icon-up-arrow *ngIf="_isFieldSorted('vin') && _isAscendingSortOrder('vin')"></kds-icon-up-arrow>
+              <kds-icon-down-arrow *ngIf="_isFieldSorted('vin') && !_isAscendingSortOrder('vin')">
+              </kds-icon-down-arrow>
             </th>
           </tr>
         </ng-template>
@@ -39,10 +68,17 @@
           </tr>
         </ng-template>
       </p-table>
-      <ers-paginator class="paginator-bottom" [itemsPerPageDropdown]="paginatorOptions.itemsPerPageDropdown"
-        [itemsPerPage]="paginatorOptions.itemsPerPage" [totalItems]="(page | async)?.data.cars.length"
-        [itemsPerPageList]="paginatorOptions.itemsPerPageList" (pageChanged)="_handlePageChange($event)"
-        [displayTotalItems]="true" [displayItemsPerPage]="true">
+	  <ers-paginator class="paginator-bottom" 
+		  [currentPage]="1" 
+		  [items]="(page | async)?.data.cars"
+		  [totalItems]="(page | async)?.meta.totalElements || 1"
+		  [itemsPerPageList]="paginatorOptions.itemsPerPageList" 
+		  [itemsPerPageDropdown]="paginatorOptions.itemsPerPageDropdown"
+		  [itemsPerPage]="paginatorOptions.itemsPerPage" 
+		  [itemsPerPageList]="paginatorOptions.itemsPerPageList" 
+		  [displayTotalItems]="paginatorOptions.displayTotalItems" 
+		  [displayItemsPerPage]="paginatorOptions.displayItemsPerPage" 
+		  (pageChanged)="_handlePageChange($event)">
       </ers-paginator>
     </div>
   </div>

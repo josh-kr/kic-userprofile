@@ -7,8 +7,9 @@ import { PaginatorModule } from '@ers-component-lib/components';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '../app-routing.module';
+import { SorticonComponent } from './car-listings/sorticon/sorticon.component';
 @NgModule({
-  declarations: [CarListingsComponent],
+  declarations: [CarListingsComponent, SorticonComponent],
   imports: [
     CommonModule,
     AppRoutingModule,

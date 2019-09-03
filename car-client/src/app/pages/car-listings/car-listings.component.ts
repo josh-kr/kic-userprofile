@@ -29,14 +29,35 @@ export class CarListingsComponent implements OnInit {
   public paginatorOptions = {
     displayPaginator: true,
     itemsPerPageDropdown: true,
-    itemsPerPage: 10,
+    itemsPerPage: 1,
     displayTotalItems: 'both',
     displayItemsPerPage: 'both',
-    itemsPerPageList: null,
+    itemsPerPageList: [
+      {
+        label: '1',
+        value: 1
+      },
+      {
+        label: '10',
+        value: 10
+      },
+      {
+        label: '25',
+        value: 25
+      },
+      {
+        label: '50',
+        value: 50
+      },
+      {
+        label: 'All',
+        value: 'all'
+      }
+    ],
   };
 
   public first = 0;
-  public currentPage = 1;
+  public currentPage = 0;
   public sortMeta: any = {};
 
   public page: Observable<Page<Car>>;
@@ -53,6 +74,7 @@ export class CarListingsComponent implements OnInit {
   constructor(
     private carService: CarService
   ) {
+    console.log('constructor');
     this.page = this.filter.asObservable().pipe(
       debounceTime(200),
       startWith(this.filter.value),
@@ -60,10 +82,10 @@ export class CarListingsComponent implements OnInit {
       switchMap(urlOrFilter => this.carService.list(urlOrFilter)),
       share()
     );
-
   }
 
   ngOnInit() {
+    console.log('init');
   }
 
 
@@ -76,21 +98,23 @@ export class CarListingsComponent implements OnInit {
     this.currentPage = event.currentPage;
     this.paginatorOptions.itemsPerPage = event.itemsPerPage;
     this.first = (this.currentPage - 1) * this.paginatorOptions.itemsPerPage;
-    this.filter.next(
+
+    this.filter.next({
+      ...this.filter.value, ...
       {
         page: {
           offset: this.first,
           size: this.paginatorOptions.itemsPerPage,
         }
       }
+    }
     );
+    return false;
   }
   _isFieldSorted(field) {
-    // console.log('is field sorted', field);
     return this.sortMeta.field === field;
   }
   _isAscendingSortOrder(field) {
-    console.log('is ascending sort order', field);
     if (this.sortMeta.field === field && this.sortMeta.order === 1) {
       return true;
     }
@@ -101,5 +125,15 @@ export class CarListingsComponent implements OnInit {
   _sortHandler(event) {
     console.log('sort handler', event);
     this.sortMeta = event;
+    let order = 'asc';
+    if (event.order === -1) {
+      order = 'desc';
+    }
+    const sortUpdate = {
+        ...this.filter.value,
+        ...{ sort: `${event.field}[${order}]` }
+      };
+      console.log(sortUpdate);
+    this.filter.next(sortUpdate);
   }
 }
