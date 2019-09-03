@@ -74,7 +74,6 @@ export class CarListingsComponent implements OnInit {
   constructor(
     private carService: CarService
   ) {
-    console.log('constructor');
     this.page = this.filter.asObservable().pipe(
       debounceTime(200),
       startWith(this.filter.value),
@@ -85,7 +84,6 @@ export class CarListingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('init');
   }
 
 

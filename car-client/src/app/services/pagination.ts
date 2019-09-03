@@ -34,15 +34,11 @@ export function queryPaginated<T>(http: HttpClient, baseUrl: string, urlOrFilter
     // we were given a page URL, use it
     url = urlOrFilter;
   } else if (typeof urlOrFilter === 'object') {
-    console.log('pagingate object', urlOrFilter);
     // we were given filtering criteria, build the query string
     Object.keys(urlOrFilter).sort().forEach(key => {
-      console.log('has', key);
       const value = urlOrFilter[key];
       if (typeof urlOrFilter[key] === 'object') {
-        console.log('has own prop');
         Object.keys(value).sort().forEach(subKey => {
-          console.log(value[subKey]);
           const subValue = value[subKey];
           params = params.set(`${key}.${subKey}`, subValue.toString());
         });
