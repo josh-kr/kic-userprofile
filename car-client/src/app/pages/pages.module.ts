@@ -2,12 +2,15 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { CarListingsComponent } from './car-listings/car-listings.component';
 import { TableModule } from 'primeng/table';
-// import { PaginatorModule } from 'primeng/paginator';
+import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from '@ers-component-lib/components';
+import { ToolbarModule } from '@ers-component-lib/components';
+
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '../app-routing.module';
 import { SorticonComponent } from './car-listings/sorticon/sorticon.component';
+
 @NgModule({
   declarations: [CarListingsComponent, SorticonComponent],
   imports: [
@@ -16,8 +19,10 @@ import { SorticonComponent } from './car-listings/sorticon/sorticon.component';
     RouterModule,
     HttpClientModule,
     TableModule,
+    DialogModule,
     PaginatorModule,
-    RouterModule
+    RouterModule,
+    ToolbarModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })

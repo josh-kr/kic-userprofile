@@ -1,30 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface Page<T> {
-  data?: {
-    cars: Array<T>
-  };
-  meta?: {
-    page: {
-      offset: number;
-      size: number;
-    },
-    totalElements: number;
-    totalPages: number;
-  };
-  errors?: {
-    code: string;
-    datetime: {
-      value: string;
-      timezone: string;
-    };
-    path: string;
-    reason: string;
-    resourceId: string;
-    rootCauses: []
-  };
-}
+import { Page } from './models';
 
 export function queryPaginated<T>(http: HttpClient, baseUrl: string, urlOrFilter?: string | object): Observable<Page<T>> {
   let params = new HttpParams();

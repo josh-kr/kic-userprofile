@@ -1,17 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { queryPaginated, Page } from './pagination';
-
-
-export interface Car {
-  color: string;
-  make: string;
-  model: string;
-  vin: string;
-  year: string;
-}
-
+import { queryPaginated } from './pagination';
+import { Car, Page } from './models';
 
 
 @Injectable({
@@ -30,6 +21,11 @@ export class CarService {
   }
   list(urlOrFilter?: string | object): Observable<Page<Car>> {
     return queryPaginated<Car>(this.http, this.baseUrl, urlOrFilter);
+  }
+
+  saveCar(car: Car): Observable<any> {
+    console.log('save car', car);
+    return this.http.post(this.baseUrl, car);
   }
 
 }

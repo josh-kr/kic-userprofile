@@ -3,7 +3,14 @@
     <h1>
       <kds-icon-delivery size="xl"></kds-icon-delivery> Cars Listing page
     </h1>
+    <ers-toolbar [isHorizontal]="true" tooltipPosition="below" style="display: inline-block">
+      <ers-tool-button icon="kds-icon-upload" actionLabel="Import" (clicked)="executeAction($event, 'Upload')">
+      </ers-tool-button>
+      <ers-tool-button icon="kds-icon-plus" actionLabel="Add" (clicked)="executeAction($event, 'Add')">
+      </ers-tool-button>
+    </ers-toolbar>
   </div>
+
   <div class="row">
     <div class="col-md-12">
       <p-table #dt [value]="(page | async)?.data.cars" [rows]="paginatorOptions.itemsPerPage" [paginator]="true"
@@ -41,6 +48,7 @@
               <kds-icon-down-arrow *ngIf="_isFieldSorted('vin') && !_isAscendingSortOrder('vin')">
               </kds-icon-down-arrow>
             </th>
+            <th [pSortableColumn]="''">
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-car>
@@ -50,11 +58,19 @@
             <td>{{car['color']}}</td>
             <td>{{car['year']}}</td>
             <td>{{car['vin']}}</td>
+            <td>
+              <kds-button kind="secondary" name="do" value="thing" onClick="{() => alert('🎉 You did the thing! 🎊')}">
+                <kds-icon-edit></kds-icon-edit>
+              </kds-button>
+              <kds-button kind="secondary" name="do" value="thing" onClick="{() => alert('🎉 You did the thing! 🎊')}">
+                <kds-icon-trash></kds-icon-trash>
+              </kds-button>
+            </td>
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage" let-columns>
           <tr>
-            <td colspan="5">
+            <td colspan="6">
               No records found
             </td>
           </tr>
@@ -68,3 +84,22 @@
       </ers-paginator>
     </div>
   </div>
+  <p-dialog header="Upload Cars" [(visible)]="displayUpload" [style]="{width: '300px'}">
+    <p>Download the XLS template <a href="../../../assets/car_template.xlsx" target="_blank">here.</a></p>
+    <input type="file" (change)="onFileChange($event)" />
+    <br />
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let car of newUploadRecords">
+        <kds-label class="mb-8">
+          <kds-checkbox class="mr-8" checked [value]="car.vin"></kds-checkbox>
+          {{ car.make }} {{ car.model }}
+        </kds-label>
+      </li>
+    </ul>
+    <kds-button kind="primary" name="do" value="thing" [disabled]="!newUploadRecords" (click)="saveUpload()">
+      Save selected
+    </kds-button>
+    <kds-button kind="cancel" name="do" value="thing" (click)="displayUpload=false">
+      Cancel
+    </kds-button>
+  </p-dialog>
