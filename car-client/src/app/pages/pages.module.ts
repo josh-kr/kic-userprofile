@@ -10,6 +10,8 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '../app-routing.module';
 import { SorticonComponent } from './car-listings/sorticon/sorticon.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { KdsStencilAccessorsModule } from 'kds-stencil-accessors';
 
 @NgModule({
   declarations: [CarListingsComponent, SorticonComponent],
@@ -22,7 +24,10 @@ import { SorticonComponent } from './car-listings/sorticon/sorticon.component';
     DialogModule,
     PaginatorModule,
     RouterModule,
-    ToolbarModule
+    ToolbarModule,
+    FormsModule,
+    ReactiveFormsModule,
+    KdsStencilAccessorsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })

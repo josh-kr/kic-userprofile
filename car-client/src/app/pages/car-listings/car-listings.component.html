@@ -88,18 +88,21 @@
     <p>Download the XLS template <a href="../../../assets/car_template.xlsx" target="_blank">here.</a></p>
     <input type="file" (change)="onFileChange($event)" />
     <br />
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let car of newUploadRecords">
-        <kds-label class="mb-8">
-          <kds-checkbox class="mr-8" checked [value]="car.vin"></kds-checkbox>
-          {{ car.make }} {{ car.model }}
-        </kds-label>
-      </li>
-    </ul>
-    <kds-button kind="primary" name="do" value="thing" [disabled]="!newUploadRecords" (click)="saveUpload()">
-      Save selected
-    </kds-button>
-    <kds-button kind="cancel" name="do" value="thing" (click)="displayUpload=false">
-      Cancel
-    </kds-button>
+    <form class="row" novalidate [formGroup]="importForm" (submit)="saveUpload()">
+      <ul class="list-group">
+        <li class="list-group-item" formArrayName="orders"
+          *ngFor="let order of importForm.controls.orders.controls; let i = index">
+          <kds-label class="mb-8">
+            <kds-checkbox class="mr-8" [formControlName]="i"></kds-checkbox>
+            {{ newUploadRecords[i].make }} {{ newUploadRecords[i].model }}
+          </kds-label>
+        </li>
+      </ul>
+      <kds-button kind="primary" type="submit" [disabled]="!newUploadRecords">
+        Save selected
+      </kds-button>
+      <kds-button kind="cancel" (click)="displayUpload=false">
+        Cancel
+      </kds-button>
+    </form>
   </p-dialog>

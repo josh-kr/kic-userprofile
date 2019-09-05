@@ -13,7 +13,7 @@ import { HomeModule } from './home/home.module';
 import { PagesModule } from './pages/pages.module';
 import { KdsStencilAccessorsModule } from 'kds-stencil-accessors';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CarService } from './services/car.service';
 
 
@@ -27,6 +27,7 @@ import { CarService } from './services/car.service';
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     KrogerNotificationsModule.forRoot(),
     CoreModule,

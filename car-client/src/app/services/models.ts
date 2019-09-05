@@ -31,3 +31,16 @@ export interface Page<T> {
         rootCauses: []
     };
 }
+
+export interface Filter {
+    page: {
+        offset: any;
+        size: any;
+    };
+    projections?: string;
+    sort?: string;
+    filter?: {
+        make: string;
+        vin: string;
+    };
+}

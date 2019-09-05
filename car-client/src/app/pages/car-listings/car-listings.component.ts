@@ -1,23 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { debounceTime, merge, share, startWith, switchMap } from 'rxjs/operators';
-import { Page, Car } from '../../services/models';
+import { Page, Car, Filter } from '../../services/models';
 import { CarService } from '../../services/car.service';
 import * as XLSX from 'xlsx';
-
-export interface Filter {
-  page: {
-    offset: any;
-    size: any;
-  };
-  projections?: string;
-  sort?: string;
-  filter?: {
-    make: string;
-    vin: string;
-  };
-}
-
+import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-car-listings',
@@ -55,26 +42,31 @@ export class CarListingsComponent implements OnInit {
       }
     ],
   };
-
   public first = 0;
   public currentPage = 0;
   public sortMeta: any = {};
-
   public page: Observable<Page<Car>>;
   public pageUrl = new Subject<string>();
-
   public filter: BehaviorSubject<Filter> = new BehaviorSubject({
     page: {
       offset: 0,
       size: this.paginatorOptions.itemsPerPage,
     }
   });
+
   public displayUpload: boolean;
   public newUploadRecords: Car[];
+  public importForm: FormGroup;
 
   constructor(
-    private carService: CarService
+    private carService: CarService,
+    private formBuilder: FormBuilder
   ) {
+
+    this.importForm = this.formBuilder.group({
+      orders: new FormArray([])
+    });
+
     this.page = this.filter.asObservable().pipe(
       debounceTime(200),
       startWith(this.filter.value),
@@ -85,22 +77,27 @@ export class CarListingsComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   saveUpload() {
-    const recCount = this.newUploadRecords.length;
-    let counter = 0;
-    this.newUploadRecords.forEach(carRecord => {
-      this.carService.saveCar(carRecord).subscribe((response) => {
-        counter++;
-        if (counter === recCount) {
-          alert('done');
-        }
-      }, (err) => {
+    console.log('importForm', this.importForm);
+    console.log('importForm', this.importForm.value);
+    // const recCount = this.newUploadRecords.length;
+    // let counter = 0;
+    // this.newUploadRecords.forEach(carRecord => {
+    //   this.carService.saveCar(carRecord).subscribe((response) => {
+    //     counter++;
+    //     if (counter === recCount) {
+    //       alert('done');
+    //       this.displayUpload = false;
+    //     }
+    //   }, (err) => {
 
-      });
-    });
-    this.newUploadRecords = [];
+    //   });
+    // });
+    // this.newUploadRecords = [];
+    return false;
   }
   deleteCar(car) {
 
@@ -151,11 +148,12 @@ export class CarListingsComponent implements OnInit {
   }
 
   onFileChange(ev) {
-    const records: Car[] = [];
+    this.newUploadRecords = [];
     let workBook = null;
     let jsonData = null;
     const reader = new FileReader();
     const file = ev.target.files[0];
+
     reader.onload = (event) => {
       const data = reader.result;
       workBook = XLSX.read(data, { type: 'binary' });
@@ -168,19 +166,20 @@ export class CarListingsComponent implements OnInit {
         const value = jsonData[key];
         if (typeof value === 'object') {
           Object.keys(value).sort().forEach(carObject => {
-            records.push(value[carObject]);
+            this.newUploadRecords.push(value[carObject]);
           });
         }
       });
-      this.newUploadRecords = records;
-      console.log('data', records);
+      this.newUploadRecords.map((o, i) => {
+        const control = new FormControl(true); // if first item set to true, else false
+        (this.importForm.controls.orders as FormArray).push(control);
+      });
     };
     reader.readAsBinaryString(file);
   }
 
 
   executeAction(event, type: string) {
-    console.log('event', event);
     switch (type) {
       case 'Add':
         break;
