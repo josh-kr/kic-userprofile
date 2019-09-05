@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { debounceTime, merge, share, startWith, switchMap } from 'rxjs/operators';
 import { Page, Car, Filter } from '../../services/models';
@@ -16,7 +16,7 @@ export class CarListingsComponent implements OnInit {
   public paginatorOptions = {
     displayPaginator: true,
     itemsPerPageDropdown: true,
-    itemsPerPage: 1,
+    itemsPerPage: 10,
     displayTotalItems: 'both',
     displayItemsPerPage: 'both',
     itemsPerPageList: [
@@ -63,10 +63,6 @@ export class CarListingsComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
 
-    this.importForm = this.formBuilder.group({
-      orders: new FormArray([])
-    });
-
     this.page = this.filter.asObservable().pipe(
       debounceTime(200),
       startWith(this.filter.value),
@@ -77,26 +73,35 @@ export class CarListingsComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.importForm = this.formBuilder.group({
+    //   fileInput: new FormControl(),
+    //   orders: new FormArray([])
+    // });
+
+    this.importForm = new FormGroup({
+      fileInput: new FormControl(),
+      cars: new FormArray([])
+    });
 
   }
 
   saveUpload() {
-    console.log('importForm', this.importForm);
-    console.log('importForm', this.importForm.value);
-    // const recCount = this.newUploadRecords.length;
-    // let counter = 0;
-    // this.newUploadRecords.forEach(carRecord => {
-    //   this.carService.saveCar(carRecord).subscribe((response) => {
-    //     counter++;
-    //     if (counter === recCount) {
-    //       alert('done');
-    //       this.displayUpload = false;
-    //     }
-    //   }, (err) => {
+    const selectedCars = this.importForm.value.cars
+      .map((v, i) => v ? this.newUploadRecords[i] : null)
+      .filter(v => v !== null);
 
-    //   });
-    // });
-    // this.newUploadRecords = [];
+    const recCount = selectedCars.length;
+    let counter = 0;
+    selectedCars.forEach(carRecord => {
+      this.carService.saveCar(carRecord).subscribe((response) => {
+        counter++;
+        if (counter === recCount) {
+          this.displayUpload = false;
+          this.resetImport();
+        }
+      }, (err) => {
+      });
+    });
     return false;
   }
   deleteCar(car) {
@@ -148,6 +153,7 @@ export class CarListingsComponent implements OnInit {
   }
 
   onFileChange(ev) {
+    console.log(ev.value);
     this.newUploadRecords = [];
     let workBook = null;
     let jsonData = null;
@@ -172,7 +178,7 @@ export class CarListingsComponent implements OnInit {
       });
       this.newUploadRecords.map((o, i) => {
         const control = new FormControl(true); // if first item set to true, else false
-        (this.importForm.controls.orders as FormArray).push(control);
+        (this.importForm.controls.cars as FormArray).push(control);
       });
     };
     reader.readAsBinaryString(file);
@@ -190,5 +196,14 @@ export class CarListingsComponent implements OnInit {
         break;
     }
   }
+
+  resetImport() {
+    this.newUploadRecords = [];
+    this.importForm = new FormGroup({
+      fileInput: new FormControl(),
+      cars: new FormArray([])
+    });
+  }
+
 
 }
