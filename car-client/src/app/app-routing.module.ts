@@ -6,6 +6,7 @@ import { HomePageComponent } from './home/home-page/home-page.component';
 import { LogoutComponent } from './core/logout/logout.component';
 import { AuthGuard } from './auth.guard';
 import { CarListingsComponent } from './pages/car-listings/car-listings.component';
+import { AuthResolve } from './services/auth.resolve';
 
 const routes: Routes = [
   {
@@ -15,15 +16,22 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomePageComponent,
-    canActivate: [AuthGuard]
+    // resolve: {
+    //   auth: AuthResolve
+    // },
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'cars',
+    component: CarListingsComponent,
+    resolve: {
+      auth: AuthResolve
+    },
+    canLoad: [AuthGuard]
   },
   {
     path: 'logout',
     component: LogoutComponent
-  },
-  {
-    path: 'cars',
-    component: CarListingsComponent
   },
   {
     path: '**',

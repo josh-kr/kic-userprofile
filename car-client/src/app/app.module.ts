@@ -15,6 +15,9 @@ import { KdsStencilAccessorsModule } from 'kds-stencil-accessors';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CarService } from './services/car.service';
+import { AuthResolve } from './services/auth.resolve';
+import { NavService } from './services/nav.service';
+import { UserService } from './services/user.service';
 
 
 @NgModule({
@@ -37,6 +40,9 @@ import { CarService } from './services/car.service';
   ],
   providers: [
     KrogerNotificationsService,
+    AuthResolve,
+    NavService,
+    UserService,
     CarService
   ],
   bootstrap: [AppComponent],

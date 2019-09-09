@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, RouterStateSnapshot, RouterState } from '@angular/router';
 import { AuthService } from 'kroger-ng-oauth2';
+import { NavService } from '../../services/nav.service';
 
 @Component({
   selector: 'app-starting-page',
@@ -13,14 +14,16 @@ export class StartingPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private navService: NavService
   ) { }
 
   ngOnInit() {
     this.authService.auth.subscribe((data) => {
       if (data.authData.authenticated) {
         // Doesn't need to go to /home, can go to any starting page you want
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+        console.log('this.navService.getReturn()', this.navService.getReturn());
+        this.returnUrl = this.navService.getReturn() || '/home';
         this.router.navigate([this.returnUrl]);
       }
     });
