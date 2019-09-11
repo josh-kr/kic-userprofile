@@ -59,10 +59,10 @@
             <td>{{car['year']}}</td>
             <td>{{car['vin']}}</td>
             <td>
-              <kds-button kind="secondary" name="do" value="thing" onClick="{() => alert('🎉 You did the thing! 🎊')}">
+              <kds-button kind="secondary" (click)="editCar(car)">
                 <kds-icon-edit></kds-icon-edit>
               </kds-button>
-              <kds-button kind="secondary" name="do" value="thing" onClick="{() => alert('🎉 You did the thing! 🎊')}">
+              <kds-button kind="secondary" (click)="deleteCar(car)">
                 <kds-icon-trash></kds-icon-trash>
               </kds-button>
             </td>

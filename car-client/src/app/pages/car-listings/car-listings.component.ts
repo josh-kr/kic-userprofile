@@ -73,16 +73,10 @@ export class CarListingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.importForm = this.formBuilder.group({
-    //   fileInput: new FormControl(),
-    //   orders: new FormArray([])
-    // });
-
     this.importForm = new FormGroup({
       fileInput: new FormControl(),
       cars: new FormArray([])
     });
-
   }
 
   saveUpload() {
@@ -105,8 +99,13 @@ export class CarListingsComponent implements OnInit {
     return false;
   }
   deleteCar(car) {
+    console.log('delete car', car);
+  }
+  editCar(car) {
+    console.log('edit car', car);
 
   }
+
 
   _handlePageChange(event) {
     console.log('page change event', event);
@@ -154,7 +153,7 @@ export class CarListingsComponent implements OnInit {
 
   onFileChange(ev) {
     console.log(ev.value);
-    this.newUploadRecords = [];
+    this.newUploadRecords = null;
     let workBook = null;
     let jsonData = null;
     const reader = new FileReader();
@@ -177,7 +176,7 @@ export class CarListingsComponent implements OnInit {
         }
       });
       this.newUploadRecords.map((o, i) => {
-        const control = new FormControl(true); // if first item set to true, else false
+        const control = new FormControl(true);
         (this.importForm.controls.cars as FormArray).push(control);
       });
     };
@@ -198,7 +197,7 @@ export class CarListingsComponent implements OnInit {
   }
 
   resetImport() {
-    this.newUploadRecords = [];
+    this.newUploadRecords = null;
     this.importForm = new FormGroup({
       fileInput: new FormControl(),
       cars: new FormArray([])
