@@ -8,7 +8,7 @@
         *ngFor="let order of importForm.controls['cars'].controls; let i = index">
         <kds-label class="mb-8">
           <kds-checkbox class="mr-8" [formControlName]="i"></kds-checkbox>
-          {{ newUploadRecords[i].make }} {{ newUploadRecords[i].model }}
+          {{ newUploadRecords[i]?.make }} {{ newUploadRecords[i]?.model }}
         </kds-label>
       </li>
     </ul>

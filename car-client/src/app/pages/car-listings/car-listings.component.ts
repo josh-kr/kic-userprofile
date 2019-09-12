@@ -76,7 +76,7 @@ export class CarListingsComponent implements OnInit {
   deleteCar(car) {
     console.log('delete car', car);
     this.carService.deleteCar(car).subscribe( (response) => {
-      console.log('delete response', response);
+      this.filter.next({...this.filter.value});
     }, (err) => {
       console.log('delete error', err.error.errors.reason);
     });
@@ -146,7 +146,6 @@ export class CarListingsComponent implements OnInit {
   }
 
   modalClosed() {
-    console.log('modal closed');
     this.filter.next({...this.filter.value});
   }
 
