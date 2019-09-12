@@ -133,8 +133,6 @@ export class CarListingsComponent implements OnInit {
     this.filter.next(sortUpdate);
   }
 
-
-
   executeAction(event, type: string) {
     switch (type) {
       case 'Add':
@@ -145,6 +143,11 @@ export class CarListingsComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  modalClosed() {
+    console.log('modal closed');
+    this.filter.next({...this.filter.value});
   }
 
 }

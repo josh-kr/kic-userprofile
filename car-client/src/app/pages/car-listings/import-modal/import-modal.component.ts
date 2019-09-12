@@ -14,7 +14,7 @@ export class ImportModalComponent implements OnInit {
   public importForm: FormGroup;
   @Input() display: boolean;
   @Output() displayChange = new EventEmitter();
-
+  @Output() modalClosed = new EventEmitter();
   constructor(
     private formBuilder: FormBuilder,
     private carService: CarService
@@ -28,7 +28,6 @@ export class ImportModalComponent implements OnInit {
   }
 
   onFileChange(ev) {
-    console.log(ev.value);
     this.newUploadRecords = [];
     let workBook = null;
     let jsonData = null;
@@ -80,6 +79,7 @@ export class ImportModalComponent implements OnInit {
         counter++;
         if (counter === recCount) {
           this.display = false;
+          this.modalClosed.emit('reload');
           this.resetImport();
         }
       }, (err) => {
