@@ -19,13 +19,20 @@ export class CarService {
   getCars() {
 
   }
-  list(urlOrFilter?: string | object): Observable<Page<Car>> {
+  list(urlOrFilter?: string | object): Observable<Page> {
     return queryPaginated<Car>(this.http, this.baseUrl, urlOrFilter);
   }
 
   saveCar(car: Car): Observable<any> {
     console.log('save car', car);
-    return this.http.post(this.baseUrl, car);
+    return this.http.post<Page>(this.baseUrl, car);
+  }
+
+  deleteCar(car: Car): Observable<any> {
+    console.log('delete car', car);
+    let params = new HttpParams();
+        params = params.set('filter.vin', car.vin);
+    return this.http.delete<Page>(this.baseUrl, { params: params });
   }
 
 }

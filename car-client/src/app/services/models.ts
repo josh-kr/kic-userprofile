@@ -7,9 +7,9 @@ export interface Car {
     year: string;
 }
 
-export interface Page<T> {
+export interface Page {
     data?: {
-        cars: Array<T>
+        cars: Array<Car>
     };
     meta?: {
         page: {

@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Page } from './models';
 
-export function queryPaginated<T>(http: HttpClient, baseUrl: string, urlOrFilter?: string | object): Observable<Page<T>> {
+export function queryPaginated<T>(http: HttpClient, baseUrl: string, urlOrFilter?: string | object): Observable<Page> {
   let params = new HttpParams();
   let url = baseUrl;
 
@@ -24,7 +24,7 @@ export function queryPaginated<T>(http: HttpClient, baseUrl: string, urlOrFilter
     });
   }
 
-  return http.get<Page<T>>(url, {
+  return http.get<Page>(url, {
     params: params
   });
 }

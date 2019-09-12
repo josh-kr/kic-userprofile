@@ -1,0 +1,22 @@
+<p-dialog header="Upload Cars" [(visible)]="display" [style]="{width: '300px'}" (onHide)="resetImport()">
+  <p>Download the XLS template <a href="../../../../assets/car_template.xlsx" target="_blank">here.</a></p>
+  <form class="row" novalidate [formGroup]="importForm" (submit)="saveUpload()">
+    <input type="file" (change)="onFileChange($event)" formControlName="fileInput" />
+    <br />
+    <ul class="list-group">
+      <li class="list-group-item" formArrayName="cars"
+        *ngFor="let order of importForm.controls['cars'].controls; let i = index">
+        <kds-label class="mb-8">
+          <kds-checkbox class="mr-8" [formControlName]="i"></kds-checkbox>
+          {{ newUploadRecords[i].make }} {{ newUploadRecords[i].model }}
+        </kds-label>
+      </li>
+    </ul>
+    <kds-button kind="primary" type="submit" [disabled]="!newUploadRecords">
+      Save selected
+    </kds-button>
+    <kds-button kind="cancel" (click)="display=false">
+      Cancel
+    </kds-button>
+  </form>
+</p-dialog>

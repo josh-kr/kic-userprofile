@@ -62,7 +62,7 @@
               <kds-button kind="secondary" (click)="editCar(car)">
                 <kds-icon-edit></kds-icon-edit>
               </kds-button>
-              <kds-button kind="secondary" (click)="deleteCar(car)">
+              <kds-button kind="destructive-secondary" (click)="deleteCar(car)">
                 <kds-icon-trash></kds-icon-trash>
               </kds-button>
             </td>
@@ -84,25 +84,5 @@
       </ers-paginator>
     </div>
   </div>
-  <p-dialog header="Upload Cars" [(visible)]="displayUpload" [style]="{width: '300px'}" (onHide)="resetImport()">
-    <p>Download the XLS template <a href="../../../assets/car_template.xlsx" target="_blank">here.</a></p>
-    <form class="row" novalidate [formGroup]="importForm" (submit)="saveUpload()">
-      <input type="file" (change)="onFileChange($event)" formControlName="fileInput" />
-      <br />
-      <ul class="list-group">
-        <li class="list-group-item" formArrayName="cars"
-          *ngFor="let order of importForm.controls['cars'].controls; let i = index">
-          <kds-label class="mb-8">
-            <kds-checkbox class="mr-8" [formControlName]="i"></kds-checkbox>
-            {{ newUploadRecords[i].make }} {{ newUploadRecords[i].model }}
-          </kds-label>
-        </li>
-      </ul>
-      <kds-button kind="primary" type="submit" [disabled]="!newUploadRecords">
-        Save selected
-      </kds-button>
-      <kds-button kind="cancel" (click)="displayUpload=false">
-        Cancel
-      </kds-button>
-    </form>
-  </p-dialog>
+ 
+<app-import-modal [(display)]="displayUpload"></app-import-modal>

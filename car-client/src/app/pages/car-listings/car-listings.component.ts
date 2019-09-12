@@ -3,8 +3,7 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { debounceTime, merge, share, startWith, switchMap } from 'rxjs/operators';
 import { Page, Car, Filter } from '../../services/models';
 import { CarService } from '../../services/car.service';
-import * as XLSX from 'xlsx';
-import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+
 
 @Component({
   selector: 'app-car-listings',
@@ -45,7 +44,7 @@ export class CarListingsComponent implements OnInit {
   public first = 0;
   public currentPage = 0;
   public sortMeta: any = {};
-  public page: Observable<Page<Car>>;
+  public page: Observable<Page>;
   public pageUrl = new Subject<string>();
   public filter: BehaviorSubject<Filter> = new BehaviorSubject({
     page: {
@@ -55,12 +54,10 @@ export class CarListingsComponent implements OnInit {
   });
 
   public displayUpload: boolean;
-  public newUploadRecords: Car[];
-  public importForm: FormGroup;
+
 
   constructor(
-    private carService: CarService,
-    private formBuilder: FormBuilder
+    private carService: CarService
   ) {
 
     this.page = this.filter.asObservable().pipe(
@@ -73,39 +70,21 @@ export class CarListingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.importForm = new FormGroup({
-      fileInput: new FormControl(),
-      cars: new FormArray([])
-    });
+
   }
 
-  saveUpload() {
-    const selectedCars = this.importForm.value.cars
-      .map((v, i) => v ? this.newUploadRecords[i] : null)
-      .filter(v => v !== null);
-
-    const recCount = selectedCars.length;
-    let counter = 0;
-    selectedCars.forEach(carRecord => {
-      this.carService.saveCar(carRecord).subscribe((response) => {
-        counter++;
-        if (counter === recCount) {
-          this.displayUpload = false;
-          this.resetImport();
-        }
-      }, (err) => {
-      });
-    });
-    return false;
-  }
   deleteCar(car) {
     console.log('delete car', car);
+    this.carService.deleteCar(car).subscribe( (response) => {
+      console.log('delete response', response);
+    }, (err) => {
+      console.log('delete error', err.error.errors.reason);
+    });
   }
+
   editCar(car) {
     console.log('edit car', car);
-
   }
-
 
   _handlePageChange(event) {
     console.log('page change event', event);
@@ -125,9 +104,11 @@ export class CarListingsComponent implements OnInit {
     );
     return false;
   }
+
   _isFieldSorted(field) {
     return this.sortMeta.field === field;
   }
+
   _isAscendingSortOrder(field) {
     if (this.sortMeta.field === field && this.sortMeta.order === 1) {
       return true;
@@ -136,6 +117,7 @@ export class CarListingsComponent implements OnInit {
       return false;
     }
   }
+
   _sortHandler(event) {
     console.log('sort handler', event);
     this.sortMeta = event;
@@ -151,37 +133,6 @@ export class CarListingsComponent implements OnInit {
     this.filter.next(sortUpdate);
   }
 
-  onFileChange(ev) {
-    console.log(ev.value);
-    this.newUploadRecords = null;
-    let workBook = null;
-    let jsonData = null;
-    const reader = new FileReader();
-    const file = ev.target.files[0];
-
-    reader.onload = (event) => {
-      const data = reader.result;
-      workBook = XLSX.read(data, { type: 'binary' });
-      jsonData = workBook.SheetNames.reduce((initial, name) => {
-        const sheet = workBook.Sheets[name];
-        initial[name] = XLSX.utils.sheet_to_json(sheet);
-        return initial;
-      }, {});
-      Object.keys(jsonData).sort().forEach(key => {
-        const value = jsonData[key];
-        if (typeof value === 'object') {
-          Object.keys(value).sort().forEach(carObject => {
-            this.newUploadRecords.push(value[carObject]);
-          });
-        }
-      });
-      this.newUploadRecords.map((o, i) => {
-        const control = new FormControl(true);
-        (this.importForm.controls.cars as FormArray).push(control);
-      });
-    };
-    reader.readAsBinaryString(file);
-  }
 
 
   executeAction(event, type: string) {
@@ -195,14 +146,5 @@ export class CarListingsComponent implements OnInit {
         break;
     }
   }
-
-  resetImport() {
-    this.newUploadRecords = null;
-    this.importForm = new FormGroup({
-      fileInput: new FormControl(),
-      cars: new FormArray([])
-    });
-  }
-
 
 }
