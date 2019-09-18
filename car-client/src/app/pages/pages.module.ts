@@ -13,9 +13,10 @@ import { SorticonComponent } from './car-listings/sorticon/sorticon.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { KdsStencilAccessorsModule } from 'kds-stencil-accessors';
 import { ImportModalComponent } from './car-listings/import-modal/import-modal.component';
+import { AddModalComponent } from './car-listings/add-modal/add-modal.component';
 
 @NgModule({
-  declarations: [CarListingsComponent, SorticonComponent, ImportModalComponent],
+  declarations: [CarListingsComponent, SorticonComponent, ImportModalComponent, AddModalComponent],
   imports: [
     CommonModule,
     AppRoutingModule,

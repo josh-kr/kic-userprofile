@@ -3,7 +3,7 @@
   <form class="row" novalidate [formGroup]="importForm" (submit)="saveUpload()">
     <input type="file" (change)="onFileChange($event)" formControlName="fileInput" />
     <br />
-    <ul class="list-group">
+    <ul id="import_list" class="list-group">
       <li class="list-group-item" formArrayName="cars"
         *ngFor="let order of importForm.controls['cars'].controls; let i = index">
         <kds-label class="mb-8">

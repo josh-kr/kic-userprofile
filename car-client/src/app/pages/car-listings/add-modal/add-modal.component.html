@@ -1,0 +1,13 @@
+<p-dialog header="Add Car" [(visible)]="display" [style]="{width: '300px'}" (onHide)="resetAdd()">
+  <form class="row" novalidate [formGroup]="newCarForm" (submit)="saveUpload()">
+
+
+    
+    <kds-button kind="primary" type="submit" [disabled]="!newCarForm.valid">
+      Save Car
+    </kds-button>
+    <kds-button kind="cancel" (click)="display=false">
+      Cancel
+    </kds-button>
+  </form>
+</p-dialog>

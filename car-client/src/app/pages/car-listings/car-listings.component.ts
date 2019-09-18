@@ -54,7 +54,7 @@ export class CarListingsComponent implements OnInit {
   });
 
   public displayUpload: boolean;
-
+  public displayAdd: boolean;
 
   constructor(
     private carService: CarService
@@ -75,8 +75,8 @@ export class CarListingsComponent implements OnInit {
 
   deleteCar(car) {
     console.log('delete car', car);
-    this.carService.deleteCar(car).subscribe( (response) => {
-      this.filter.next({...this.filter.value});
+    this.carService.deleteCar(car).subscribe((response) => {
+      this.filter.next({ ...this.filter.value });
     }, (err) => {
       console.log('delete error', err.error.errors.reason);
     });
@@ -136,9 +136,12 @@ export class CarListingsComponent implements OnInit {
   executeAction(event, type: string) {
     switch (type) {
       case 'Add':
+        this.displayAdd = true;
+        this.displayUpload = false;
         break;
       case 'Upload':
         this.displayUpload = true;
+        this.displayAdd = false;
         break;
       default:
         break;
@@ -146,7 +149,8 @@ export class CarListingsComponent implements OnInit {
   }
 
   modalClosed() {
-    this.filter.next({...this.filter.value});
+    // Force refresh of list
+    this.filter.next({ ...this.filter.value });
   }
 
 }
