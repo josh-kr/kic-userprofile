@@ -50,6 +50,20 @@
             </th>
             <th [pSortableColumn]="''">
           </tr>
+          <!-- <form [formGroup]="gridFilterForm" novalidate>
+            <tr>
+              <th>
+                <kds-input compact [formControlName]="'filterMake'" name="filterMake"></kds-input>
+              </th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th>
+                <kds-input compact [formControlName]="'filterVin'" name="filterVin"></kds-input>
+              </th>
+              <th></th>
+            </tr>
+          </form> -->
         </ng-template>
         <ng-template pTemplate="body" let-car>
           <tr class="ers-data-row">
@@ -84,6 +98,7 @@
       </ers-paginator>
     </div>
   </div>
- 
-<app-import-modal [(display)]="displayUpload" (modalClosed)="modalClosed()"></app-import-modal>
-<app-add-modal [(display)]="displayAdd" (modalClosed)="modalClosed()"></app-add-modal>
+
+  
+  <app-add-modal [(display)]="displayAdd" (modalClosed)="modalClosed()"></app-add-modal>
+  <app-import-modal [(display)]="displayUpload" (modalClosed)="modalClosed()"></app-import-modal>

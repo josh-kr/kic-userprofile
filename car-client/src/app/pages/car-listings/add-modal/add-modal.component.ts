@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Car } from '../../../services/models';
 import { CarService } from '../../../services/car.service';
 
-
 @Component({
   selector: 'app-add-modal',
   templateUrl: './add-modal.component.html',
@@ -12,6 +11,7 @@ import { CarService } from '../../../services/car.service';
 export class AddModalComponent implements OnInit {
   public newCar: Car;
   public newCarForm: FormGroup;
+
   @Input() display: boolean;
   @Output() displayChange = new EventEmitter();
   @Output() modalClosed = new EventEmitter();
@@ -19,16 +19,18 @@ export class AddModalComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private carService: CarService
-  ) { }
+  ) {
+    this.newCarForm = new FormGroup({
+      make: new FormControl(),
+      model: new FormControl(),
+      color: new FormControl(),
+      year: new FormControl(),
+      vin: new FormControl()
+    });
+  }
 
   ngOnInit() {
-    this.newCarForm = new FormGroup({
-      make: new FormControl('', Validators.required),
-      model: new FormControl('', Validators.required),
-      color: new FormControl('', Validators.required),
-      year: new FormControl('', Validators.required),
-      vin: new FormControl('', Validators.required)
-    });
+
   }
 
   resetAdd() {
@@ -37,8 +39,8 @@ export class AddModalComponent implements OnInit {
     this.newCarForm.reset();
   }
 
-  saveUpload() {
-    console.log('this.newCarForm', this.newCarForm.value, this.newCarForm.valid);
+  saveAdd() {
+    console.log('this.newCarForm', this.newCarForm, this.newCarForm.value, this.newCarForm.valid);
     return false;
     if (!this.newCarForm.valid) {
       return false;

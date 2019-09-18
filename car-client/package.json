@@ -37,7 +37,7 @@
     "framebus": "^3.0.2",
     "intl": "^1.2.5",
     "jquery": "^3.4.1",
-    "kds-stencil": "^3.0.0",
+    "kds-stencil": "^3.5.3",
     "kds-stencil-accessors": "^1.0.0",
     "kroger-bootstrap-less": "^2.0.1",
     "kroger-ng-oauth2": "0.0.7",

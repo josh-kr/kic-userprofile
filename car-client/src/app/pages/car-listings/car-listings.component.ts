@@ -3,6 +3,7 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { debounceTime, merge, share, startWith, switchMap } from 'rxjs/operators';
 import { Page, Car, Filter } from '../../services/models';
 import { CarService } from '../../services/car.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 
 @Component({
@@ -56,6 +57,8 @@ export class CarListingsComponent implements OnInit {
   public displayUpload: boolean;
   public displayAdd: boolean;
 
+  public gridFilterForm: FormGroup;
+
   constructor(
     private carService: CarService
   ) {
@@ -67,10 +70,17 @@ export class CarListingsComponent implements OnInit {
       switchMap(urlOrFilter => this.carService.list(urlOrFilter)),
       share()
     );
+    // this.gridFilterForm = new FormGroup({
+    //   filterMake: new FormControl(''),
+    //   filterVin: new FormControl('')
+    // });
   }
 
   ngOnInit() {
-
+    // this.gridFilterForm = new FormGroup({
+    //   filterMake: new FormControl(''),
+    //   filterVin: new FormControl('')
+    // });
   }
 
   deleteCar(car) {

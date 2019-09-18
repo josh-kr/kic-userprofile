@@ -5,7 +5,6 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from '@ers-component-lib/components';
 import { ToolbarModule } from '@ers-component-lib/components';
-
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '../app-routing.module';
@@ -16,7 +15,12 @@ import { ImportModalComponent } from './car-listings/import-modal/import-modal.c
 import { AddModalComponent } from './car-listings/add-modal/add-modal.component';
 
 @NgModule({
-  declarations: [CarListingsComponent, SorticonComponent, ImportModalComponent, AddModalComponent],
+  declarations: [
+    CarListingsComponent,
+    SorticonComponent,
+    ImportModalComponent,
+    AddModalComponent
+  ],
   imports: [
     CommonModule,
     AppRoutingModule,
@@ -31,6 +35,9 @@ import { AddModalComponent } from './car-listings/add-modal/add-modal.component'
     ReactiveFormsModule,
     KdsStencilAccessorsModule
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
+  ]
 })
 export class PagesModule { }
