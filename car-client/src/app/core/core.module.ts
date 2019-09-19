@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
@@ -14,6 +14,10 @@ import { KrogerNgAuthModule } from 'kroger-ng-oauth2';
     KrogerNgAuthModule
   ],
   declarations: [HeaderComponent, NavbarComponent, FooterComponent, LogoutComponent],
-  exports: [HeaderComponent, NavbarComponent, FooterComponent, LogoutComponent]
+  exports: [HeaderComponent, NavbarComponent, FooterComponent, LogoutComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
+  ]
 })
 export class CoreModule { }
