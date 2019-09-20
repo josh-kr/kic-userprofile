@@ -13,6 +13,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { KdsStencilAccessorsModule } from 'kds-stencil-accessors';
 import { ImportModalComponent } from './car-listings/import-modal/import-modal.component';
 import { AddModalComponent } from './car-listings/add-modal/add-modal.component';
+import { ModalModule } from '@ers-component-lib/components';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AddModalComponent } from './car-listings/add-modal/add-modal.component'
     ToolbarModule,
     FormsModule,
     ReactiveFormsModule,
-    KdsStencilAccessorsModule
+    KdsStencilAccessorsModule,
+    ModalModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,

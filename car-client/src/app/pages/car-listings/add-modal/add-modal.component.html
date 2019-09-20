@@ -1,28 +1,29 @@
-<p-dialog header="Add Car" [(visible)]="display" [style]="{width: '300px'}" (onHide)="resetAdd()">
-  <form class="row" novalidate [formGroup]="newCarForm" (submit)="saveAdd()">
+<!-- <p-dialog header="Add Car" [(visible)]="display" [style]="{width: '300px'}" (onHide)="resetAdd()"> -->
+<div>
+  <form novalidate [formGroup]="newCarForm" (submit)="saveAdd()">
     <kds-label>
       Make:
-<!-- MUST HAVE ngDefaultControl for kds-input to work -->
+      <!-- MUST HAVE ngDefaultControl for kds-input to work -->
       <kds-input ngDefaultControl formControlName="make"></kds-input>
     </kds-label>
     <kds-label>
       Model:
-<!-- MUST HAVE ngDefaultControl for kds-input to work -->      
+      <!-- MUST HAVE ngDefaultControl for kds-input to work -->
       <kds-input ngDefaultControl formControlName="model"></kds-input>
     </kds-label>
     <kds-label>
       Color:
-<!-- MUST HAVE ngDefaultControl for kds-input to work -->      
+      <!-- MUST HAVE ngDefaultControl for kds-input to work -->
       <kds-input ngDefaultControl formControlName="color"></kds-input>
     </kds-label>
     <kds-label>
       Year:
-<!-- MUST HAVE ngDefaultControl for kds-input to work -->      
+      <!-- MUST HAVE ngDefaultControl for kds-input to work -->
       <kds-input ngDefaultControl formControlName="year"></kds-input>
     </kds-label>
     <kds-label>
       VIN:
-<!-- MUST HAVE ngDefaultControl for kds-input to work -->      
+      <!-- MUST HAVE ngDefaultControl for kds-input to work -->
       <kds-input ngDefaultControl formControlName="vin"></kds-input>
     </kds-label>
     <kds-button kind="primary" type="submit" [disabled]="!newCarForm.valid">
@@ -32,4 +33,5 @@
       Cancel
     </kds-button>
   </form>
-</p-dialog>
+  <!-- </p-dialog> -->
+</div>

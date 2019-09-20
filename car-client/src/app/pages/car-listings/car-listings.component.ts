@@ -4,12 +4,16 @@ import { debounceTime, merge, share, startWith, switchMap } from 'rxjs/operators
 import { Page, Car, Filter } from '../../services/models';
 import { CarService } from '../../services/car.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { AddModalComponent } from './add-modal/add-modal.component';
+import { ErsModalService } from '@ers-component-lib/components';
+import { isNullOrUndefined } from 'util';
 
 
 @Component({
   selector: 'app-car-listings',
   templateUrl: './car-listings.component.html',
-  styleUrls: ['./car-listings.component.less']
+  styleUrls: ['./car-listings.component.less'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CarListingsComponent implements OnInit {
 
@@ -54,13 +58,19 @@ export class CarListingsComponent implements OnInit {
     }
   });
 
+  public filterableFields = {
+    vin: '',
+    make: ''
+  };
+
   public displayUpload: boolean;
   public displayAdd: boolean;
 
   public gridFilterForm: FormGroup;
 
   constructor(
-    private carService: CarService
+    private carService: CarService,
+    private ersModalService: ErsModalService
   ) {
 
     this.page = this.filter.asObservable().pipe(
@@ -70,17 +80,14 @@ export class CarListingsComponent implements OnInit {
       switchMap(urlOrFilter => this.carService.list(urlOrFilter)),
       share()
     );
-    // this.gridFilterForm = new FormGroup({
-    //   filterMake: new FormControl(''),
-    //   filterVin: new FormControl('')
-    // });
+
   }
 
   ngOnInit() {
-    // this.gridFilterForm = new FormGroup({
-    //   filterMake: new FormControl(''),
-    //   filterVin: new FormControl('')
-    // });
+    this.gridFilterForm = new FormGroup({
+      make: new FormControl(''),
+      vin: new FormControl('')
+    });
   }
 
   deleteCar(car) {
@@ -145,13 +152,45 @@ export class CarListingsComponent implements OnInit {
 
   executeAction(event, type: string) {
     switch (type) {
-      case 'Add':
-        this.displayAdd = true;
-        this.displayUpload = false;
-        break;
       case 'Upload':
         this.displayUpload = true;
         this.displayAdd = false;
+        break;
+      case 'Add':
+        // this.displayAdd = true;
+        // this.displayUpload = false;
+        // break;
+        let newCarForm: FormGroup;
+        const addModal = this.ersModalService.open(AddModalComponent, {
+          data: {
+            inputs: {
+              newCarForm: newCarForm
+            }, outputs: {}
+          },
+          config: {
+            size: 'medium',
+            header: 'Add Car',
+            icon: 'kds-icon-delivery',
+            acceptLabel: 'Save Car',
+            cancelLabel: 'Cancel',
+            displayCancelButton: true,
+            primaryBtnType: 'primary',
+          }
+        }).subscribe(value => {
+          console.log('value', value);
+          if (!isNullOrUndefined(value)) { // accept button was clicked
+            if (value.newCarForm.valid) {
+              console.log('valid');
+              return true;
+            } else {
+              console.log('in valid');
+              return false;
+            }
+          }
+          // this.returnedValue = value;
+
+          // if(isnullOrUndefined(value))), cancel button was clicked
+        });
         break;
       default:
         break;
@@ -162,5 +201,22 @@ export class CarListingsComponent implements OnInit {
     // Force refresh of list
     this.filter.next({ ...this.filter.value });
   }
+
+  columnFilter() {
+    const filterUpdate = {};
+    Object.keys(this.gridFilterForm.controls).sort().forEach(key => {
+      const columnFilterValue = this.gridFilterForm.controls[key].value;
+      const keyVal = key;
+      if (columnFilterValue) {
+        filterUpdate[keyVal] = columnFilterValue;
+      }
+    });
+    const newFilter = {
+      ...this.filter.value,
+      ...{ filter: filterUpdate }
+    };
+    this.filter.next(newFilter);
+  }
+
 
 }

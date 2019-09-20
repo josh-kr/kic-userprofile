@@ -18,6 +18,7 @@ import { CarService } from './services/car.service';
 import { AuthResolve } from './services/auth.resolve';
 import { NavService } from './services/nav.service';
 import { UserService } from './services/user.service';
+import { AddModalComponent } from './pages/car-listings/add-modal/add-modal.component';
 
 
 @NgModule({
@@ -46,6 +47,9 @@ import { UserService } from './services/user.service';
     CarService
   ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+  entryComponents: [
+    AddModalComponent
+  ]
 })
 export class AppModule { }

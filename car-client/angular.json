@@ -28,9 +28,9 @@
               "node_modules/kroger-bootstrap-less/less/kroger-bootstrap-styles.less",
               "node_modules/kds-stencil/dist/kds-reset.css",
               "node_modules/kds-stencil/dist/kds-utils.css",
-              "src/styles.less",
-              "node_modules/@ers-component-lib/components/assets/styles/ers-next-styles.less"
-              
+              "node_modules/@ers-component-lib/components/assets/styles/ers-next-styles.less",
+              "node_modules/@angular/cdk/overlay-prebuilt.css",
+              "src/styles.less"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
