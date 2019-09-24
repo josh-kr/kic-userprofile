@@ -104,7 +104,6 @@ export class CarListingsComponent implements OnInit {
   }
 
   _handlePageChange(event) {
-    console.log('page change event', event);
     this.currentPage = event.currentPage;
     this.paginatorOptions.itemsPerPage = event.itemsPerPage;
     this.first = (this.currentPage - 1) * this.paginatorOptions.itemsPerPage;
@@ -188,7 +187,6 @@ export class CarListingsComponent implements OnInit {
             }
           }
           // this.returnedValue = value;
-
           // if(isnullOrUndefined(value))), cancel button was clicked
         });
         break;
@@ -213,7 +211,13 @@ export class CarListingsComponent implements OnInit {
     });
     const newFilter = {
       ...this.filter.value,
-      ...{ filter: filterUpdate }
+      ...{ filter: filterUpdate },
+      ...{
+        page: {
+          offset: 0,
+          size: this.paginatorOptions.itemsPerPage,
+        }
+      }
     };
     this.filter.next(newFilter);
   }

@@ -40,7 +40,7 @@ export interface Filter {
     projections?: string;
     sort?: string;
     filter?: {
-        make?: string;
-        vin?: string;
+        make?: string | {like?: string};
+        vin ?: string;
     };
 }

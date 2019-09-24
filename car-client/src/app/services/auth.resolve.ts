@@ -13,7 +13,6 @@ export class AuthResolve implements Resolve<any> {
     ) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<any> {
-    console.log('waiting');
     this.navService.setReturn(state.url);
     return this.authService.getUser() || this.router.navigate(['/']);
   }

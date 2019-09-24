@@ -22,7 +22,6 @@ export class StartingPageComponent implements OnInit {
     this.authService.auth.subscribe((data) => {
       if (data.authData.authenticated) {
         // Doesn't need to go to /home, can go to any starting page you want
-        console.log('this.navService.getReturn()', this.navService.getReturn());
         this.returnUrl = this.navService.getReturn() || '/home';
         this.router.navigate([this.returnUrl]);
       }
