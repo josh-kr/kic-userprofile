@@ -86,12 +86,12 @@ export class CarListingsComponent implements OnInit {
   ngOnInit() {
     this.gridFilterForm = new FormGroup({
       make: new FormControl(''),
-      vin: new FormControl('')
+      vin: new FormControl(''),
+      make_like: new FormControl('')
     });
   }
 
   deleteCar(car) {
-    console.log('delete car', car);
     this.carService.deleteCar(car).subscribe((response) => {
       this.filter.next({ ...this.filter.value });
     }, (err) => {
@@ -204,7 +204,7 @@ export class CarListingsComponent implements OnInit {
     const filterUpdate = {};
     Object.keys(this.gridFilterForm.controls).sort().forEach(key => {
       const columnFilterValue = this.gridFilterForm.controls[key].value;
-      const keyVal = key;
+      const keyVal = key.replace('_', '.'); // replace the underscore with a . for "like" search
       if (columnFilterValue) {
         filterUpdate[keyVal] = columnFilterValue;
       }

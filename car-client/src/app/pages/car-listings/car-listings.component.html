@@ -55,8 +55,13 @@
             <th>
               <form [formGroup]="gridFilterForm" novalidate (submit)="columnFilter()">
                 <span class="columnFilter">
-                  <kds-input type="text" ngDefaultControl compact formControlName="make" name="filterMake">
-                  </kds-input>
+                  <!-- <kds-input type="text" ngDefaultControl compact formControlName="make" name="filterMake">
+                  </kds-input> -->
+                  <!-- <kds-button type="button" compact kind="secondary" inner-aria-label="Filter">
+                    <kds-icon-filters></kds-icon-filters>
+                  </kds-button> -->
+                  <kds-input type="text" ngDefaultControl compact formControlName="make_like" name="filterMake">
+                  </kds-input>                  
                   <kds-button type="submit" compact kind="primary" inner-aria-label="Filter on Make">
                     <kds-icon-search></kds-icon-search>
                   </kds-button>
