@@ -8,7 +8,6 @@ import { AddModalComponent } from './add-modal/add-modal.component';
 import { ErsModalService } from '@ers-component-lib/components';
 import { isNullOrUndefined } from 'util';
 
-
 @Component({
   selector: 'app-car-listings',
   templateUrl: './car-listings.component.html',
@@ -16,7 +15,6 @@ import { isNullOrUndefined } from 'util';
   encapsulation: ViewEncapsulation.None
 })
 export class CarListingsComponent implements OnInit {
-
   public paginatorOptions = {
     displayPaginator: true,
     itemsPerPageDropdown: true,
@@ -68,6 +66,8 @@ export class CarListingsComponent implements OnInit {
 
   public gridFilterForm: FormGroup;
 
+  @ViewChild('toast') toast: any;
+
   constructor(
     private carService: CarService,
     private ersModalService: ErsModalService
@@ -84,6 +84,15 @@ export class CarListingsComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('toast', this.toast);
+
+    const toaster = this.toast.nativeElement;
+    const toastController = toaster.createToast({
+      message: 'You\'ve successfully created a Toast with a reference!',
+      heading: 'Reference Toast',
+      kind: 'success'
+    });
+
     this.gridFilterForm = new FormGroup({
       make: new FormControl(''),
       vin: new FormControl(''),
@@ -135,7 +144,6 @@ export class CarListingsComponent implements OnInit {
   }
 
   _sortHandler(event) {
-    console.log('sort handler', event);
     this.sortMeta = event;
     let order = 'asc';
     if (event.order === -1) {
@@ -145,7 +153,6 @@ export class CarListingsComponent implements OnInit {
       ...this.filter.value,
       ...{ sort: `${event.field}[${order}]` }
     };
-    console.log(sortUpdate);
     this.filter.next(sortUpdate);
   }
 

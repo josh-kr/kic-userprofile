@@ -14,7 +14,6 @@ import { KdsStencilAccessorsModule } from 'kds-stencil-accessors';
 import { ImportModalComponent } from './car-listings/import-modal/import-modal.component';
 import { AddModalComponent } from './car-listings/add-modal/add-modal.component';
 import { ModalModule } from '@ers-component-lib/components';
-import {InplaceModule} from 'primeng/inplace';
 
 @NgModule({
   declarations: [
@@ -36,8 +35,7 @@ import {InplaceModule} from 'primeng/inplace';
     FormsModule,
     ReactiveFormsModule,
     KdsStencilAccessorsModule,
-    ModalModule,
-    InplaceModule
+    ModalModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
