@@ -14,7 +14,7 @@
 
   <div class="row">
     <div class="col-md-12">
-      <app-applied-filters *ngIf="filterUpdate" [filters]="filterUpdate" (update)="updateFilters($event)"></app-applied-filters>
+      <app-applied-filters *ngIf="(filterUpdate | keyvalue)?.length" [filters]="filterUpdate" (update)="updateFilters($event)"></app-applied-filters>
       <p-table #dt [value]="(page | async)?.data.cars" [rows]="paginatorOptions.itemsPerPage" [paginator]="true"
         [lazy]="true" [first]="first" [emptymessage]="'No records found.'" (onSort)="_sortHandler($event)">
         <ng-template pTemplate="header">
