@@ -14,6 +14,7 @@
 
   <div class="row">
     <div class="col-md-12">
+      <app-applied-filters *ngIf="filterUpdate" [filters]="filterUpdate" (update)="updateFilters($event)"></app-applied-filters>
       <p-table #dt [value]="(page | async)?.data.cars" [rows]="paginatorOptions.itemsPerPage" [paginator]="true"
         [lazy]="true" [first]="first" [emptymessage]="'No records found.'" (onSort)="_sortHandler($event)">
         <ng-template pTemplate="header">
@@ -55,11 +56,6 @@
             <th>
               <form [formGroup]="gridFilterForm" novalidate (submit)="columnFilter()">
                 <span class="columnFilter">
-                  <!-- <kds-input type="text" ngDefaultControl compact formControlName="make" name="filterMake">
-                  </kds-input> -->
-                  <!-- <kds-button type="button" compact kind="secondary" inner-aria-label="Filter">
-                    <kds-icon-filters></kds-icon-filters>
-                  </kds-button> -->
                   <kds-input type="text" ngDefaultControl compact formControlName="make_like" name="filterMake">
                   </kds-input>                  
                   <kds-button type="submit" compact kind="primary" inner-aria-label="Filter on Make">
@@ -122,5 +118,5 @@
 
 
   <!-- <app-add-modal [(display)]="displayAdd" (modalClosed)="modalClosed()"></app-add-modal> -->
-  <app-import-modal [(display)]="displayUpload" (modalClosed)="modalClosed()"></app-import-modal>
+  <app-import-modal [(display)]="displayUpload" (modalClosed)="modalClosed($event)"></app-import-modal>
   <kds-toast-controller #toast></kds-toast-controller>

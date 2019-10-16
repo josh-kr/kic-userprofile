@@ -63,16 +63,16 @@ export class CarListingsComponent implements OnInit {
 
   public displayUpload: boolean;
   public displayAdd: boolean;
-
   public gridFilterForm: FormGroup;
-
   @ViewChild('toast') toast: any;
+  public toastController: HTMLKdsToastControllerElement;
+
+  public filterUpdate = null;
 
   constructor(
     private carService: CarService,
     private ersModalService: ErsModalService
   ) {
-
     this.page = this.filter.asObservable().pipe(
       debounceTime(200),
       startWith(this.filter.value),
@@ -80,19 +80,10 @@ export class CarListingsComponent implements OnInit {
       switchMap(urlOrFilter => this.carService.list(urlOrFilter)),
       share()
     );
-
   }
 
   ngOnInit() {
-    console.log('toast', this.toast);
-
-    const toaster = this.toast.nativeElement;
-    const toastController = toaster.createToast({
-      message: 'You\'ve successfully created a Toast with a reference!',
-      heading: 'Reference Toast',
-      kind: 'success'
-    });
-
+    this.toastController = this.toast.nativeElement;
     this.gridFilterForm = new FormGroup({
       make: new FormControl(''),
       vin: new FormControl(''),
@@ -103,8 +94,18 @@ export class CarListingsComponent implements OnInit {
   deleteCar(car) {
     this.carService.deleteCar(car).subscribe((response) => {
       this.filter.next({ ...this.filter.value });
+      this.toastController.createToast({
+        message: 'You\'ve successfully deleted a car!',
+        heading: 'Car Deleted',
+        kind: 'success' // "error" | "info" | "success" | "warning"
+      });
     }, (err) => {
-      console.log('delete error', err.error.errors.reason);
+      console.error('Delete Error', err.error.errors.reason);
+      this.toastController.createToast({
+        message: err.error.errors.reason,
+        heading: 'Error deleting car',
+        kind: 'error' // "error" | "info" | "success" | "warning"
+      });
     });
   }
 
@@ -166,7 +167,7 @@ export class CarListingsComponent implements OnInit {
         // this.displayAdd = true;
         // this.displayUpload = false;
         // break;
-        let newCarForm: FormGroup;
+        const newCarForm: FormGroup = new FormGroup({});
         const addModal = this.ersModalService.open(AddModalComponent, {
           data: {
             inputs: {
@@ -202,23 +203,31 @@ export class CarListingsComponent implements OnInit {
     }
   }
 
-  modalClosed() {
+  modalClosed(type) {
     // Force refresh of list
+    if (type === 'reload') {
+      this.toastController.createToast({
+        message: '',
+        heading: 'Car Import successful',
+        kind: 'success' // "error" | "info" | "success" | "warning"
+      });
+    }
     this.filter.next({ ...this.filter.value });
   }
 
   columnFilter() {
-    const filterUpdate = {};
+    this.filterUpdate = {};
     Object.keys(this.gridFilterForm.controls).sort().forEach(key => {
       const columnFilterValue = this.gridFilterForm.controls[key].value;
       const keyVal = key.replace('_', '.'); // replace the underscore with a . for "like" search
       if (columnFilterValue) {
-        filterUpdate[keyVal] = columnFilterValue;
+        this.filterUpdate[keyVal] = columnFilterValue;
       }
     });
+    console.log('filterUpdate', this.filterUpdate);
     const newFilter = {
       ...this.filter.value,
-      ...{ filter: filterUpdate },
+      ...{ filter: this.filterUpdate },
       ...{
         page: {
           offset: 0,
@@ -228,6 +237,13 @@ export class CarListingsComponent implements OnInit {
     };
     this.filter.next(newFilter);
   }
+
+  updateFilters(key) {
+    const keyVal = key.replace('.', '_'); // replace the underscore with a . for "like" search
+    this.gridFilterForm.controls[keyVal].setValue('');
+    this.columnFilter();
+  }
+
 
 
 }
