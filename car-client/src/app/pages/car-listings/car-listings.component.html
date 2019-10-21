@@ -4,17 +4,46 @@
       <kds-accent-icon-delivery size="s"></kds-accent-icon-delivery>
       Cars Listing page
     </h1>
-    <ers-toolbar [isHorizontal]="true" tooltipPosition="below" style="display: inline-block">
+    <!-- <ers-toolbar [isHorizontal]="true" tooltipPosition="below" style="display: inline-block">
       <ers-tool-button icon="kds-icon-upload" actionLabel="Import" (clicked)="executeAction($event, 'Upload')">
       </ers-tool-button>
       <ers-tool-button icon="kds-icon-plus" actionLabel="Add" (clicked)="executeAction($event, 'Add')">
       </ers-tool-button>
-    </ers-toolbar>
+    </ers-toolbar> -->
   </div>
 
   <div class="row">
     <div class="col-md-12">
-      <app-applied-filters *ngIf="(filterUpdate | keyvalue)?.length" [filters]="filterUpdate" (update)="updateFilters($event)"></app-applied-filters>
+      <app-applied-filters *ngIf="(filterUpdate | keyvalue)?.length" [filters]="filterUpdate"
+        (update)="updateFilters($event)"></app-applied-filters>
+      <p-toolbar>
+        <div class="ui-toolbar-group-left">
+          <kds-button class="mr-8" kind="primary" inner-aria-label="Add new car" compact title="Add new car"
+            tooltipPosition="top" pTooltip="Add new car" (click)="executeAction($event, 'Add')">
+            <kds-icon-plus></kds-icon-plus>
+          </kds-button>
+          <kds-button class="mr-8" kind="secondary" inner-aria-label="Upload car list" compact title="Upload car list"
+            pTooltip="Upload car list" tooltipPosition="top" (click)="executeAction($event, 'Upload')">
+            <kds-icon-upload></kds-icon-upload>
+          </kds-button>
+
+          <i class="ui-toolbar-separator" style="vertical-align: middle">|</i>
+
+          <!-- <p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="ui-button-warning"></p-splitButton> -->
+        </div>
+
+        <div class="ui-toolbar-group-right">
+          <kds-button class="mr-8" kind="secondary" inner-aria-label="Search Cars" compact title="Search Cars"
+            pTooltip="Search Cars" tooltipPosition="top">
+            <kds-icon-search></kds-icon-search>
+          </kds-button>
+          <kds-button class="mr-8" kind="favorable-secondary" inner-aria-label="Export List" compact title="Export List"
+            pTooltip="Export List" tooltipPosition="top">
+            <kds-icon-export></kds-icon-export>
+          </kds-button>          
+          
+        </div>
+      </p-toolbar>
       <p-table #dt [value]="(page | async)?.data.cars" [rows]="paginatorOptions.itemsPerPage" [paginator]="true"
         [lazy]="true" [first]="first" [emptymessage]="'No records found.'" (onSort)="_sortHandler($event)">
         <ng-template pTemplate="header">
@@ -57,7 +86,7 @@
               <form [formGroup]="gridFilterForm" novalidate (submit)="columnFilter()">
                 <span class="columnFilter">
                   <kds-input type="text" ngDefaultControl compact formControlName="make_like" name="filterMake">
-                  </kds-input>                  
+                  </kds-input>
                   <kds-button type="submit" compact kind="primary" inner-aria-label="Filter on Make">
                     <kds-icon-search></kds-icon-search>
                   </kds-button>

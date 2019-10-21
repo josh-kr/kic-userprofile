@@ -3,8 +3,8 @@
   <ul>
     <li *ngFor="let key of objectKeys(filters); let i = index">
       {{prettifyKey(key) + ': ' + filters[key]}}
-      <kds-button type="button" compact kind="primary-inverse" inner-aria-label="Remove Filter" (click)="click(key)">
-        <kds-icon-close></kds-icon-close>
+      <kds-button type="button" compact kind="secondary" inner-aria-label="Remove Filter" (click)="click(key)">
+        <kds-icon-close size="utility-s"></kds-icon-close>
       </kds-button>
     </li>
   </ul>

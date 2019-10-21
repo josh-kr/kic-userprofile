@@ -4,7 +4,7 @@ import { CarListingsComponent } from './car-listings/car-listings.component';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from '@ers-component-lib/components';
-import { ToolbarModule } from '@ers-component-lib/components';
+import { ToolbarModule as ERS_ToolbarModule } from '@ers-component-lib/components';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '../app-routing.module';
@@ -15,6 +15,9 @@ import { ImportModalComponent } from './car-listings/import-modal/import-modal.c
 import { AddModalComponent } from './car-listings/add-modal/add-modal.component';
 import { ModalModule } from '@ers-component-lib/components';
 import { AppliedFiltersComponent } from './car-listings/applied-filters/applied-filters.component';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -33,11 +36,14 @@ import { AppliedFiltersComponent } from './car-listings/applied-filters/applied-
     DialogModule,
     PaginatorModule,
     RouterModule,
-    ToolbarModule,
+    ERS_ToolbarModule,
     FormsModule,
     ReactiveFormsModule,
     KdsStencilAccessorsModule,
-    ModalModule
+    ModalModule,
+    ToolbarModule,
+    ButtonModule,
+    TooltipModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,

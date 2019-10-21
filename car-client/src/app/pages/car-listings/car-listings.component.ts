@@ -224,7 +224,6 @@ export class CarListingsComponent implements OnInit {
         this.filterUpdate[keyVal] = columnFilterValue;
       }
     });
-    console.log('filterUpdate', this.filterUpdate);
     const newFilter = {
       ...this.filter.value,
       ...{ filter: this.filterUpdate },
