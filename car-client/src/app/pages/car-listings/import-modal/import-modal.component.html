@@ -5,7 +5,7 @@
     <br />
     <ul id="import_list" class="list-group">
       <li class="list-group-item" formArrayName="cars"
-        *ngFor="let order of importForm.controls['cars'].controls; let i = index">
+        *ngFor="let order of importForm.get('cars')['controls']; let i = index">
         <kds-label class="mb-8">
           <kds-checkbox class="mr-8" [formControlName]="i"></kds-checkbox>
           {{ newUploadRecords[i]?.make }} {{ newUploadRecords[i]?.model }}

@@ -13,7 +13,7 @@ export class AddModalComponent implements OnInit {
   // public newCar: Car;
   public newCarForm: FormGroup;
 
-  // @Input() display: boolean;
+  @Input() display: boolean;
   // @Output() displayChange = new EventEmitter();
   // @Output() modalClosed = new EventEmitter();
 
