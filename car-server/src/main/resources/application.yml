@@ -6,7 +6,7 @@ spring:
     ansi:
       enabled: detect
   profiles:
-    active: local
+    active: local,SKIP_SSL_VALIDATION
   mvc:
     view:
       suffix: .html

@@ -22,7 +22,7 @@
             ],
             "styles": [
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/omega/theme.css",
+              "node_modules/primeng/resources/themes/nova-light/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/bootstrap-less/bootstrap/bootstrap.less",
               "node_modules/kroger-bootstrap-less/less/kroger-bootstrap-styles.less",

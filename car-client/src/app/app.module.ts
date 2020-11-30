@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { KrogerNotificationsModule, KrogerNotificationsService } from 'kroger-notifications';
+// import { KrogerNotificationsModule, KrogerNotificationsService } from 'kroger-notifications';
 import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
 import { PagesModule } from './pages/pages.module';
@@ -33,14 +33,14 @@ import { AddModalComponent } from './pages/car-listings/add-modal/add-modal.comp
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    KrogerNotificationsModule.forRoot(),
+    // KrogerNotificationsModule.forRoot(),
     CoreModule,
     HomeModule,
     PagesModule,
     KdsStencilAccessorsModule
   ],
   providers: [
-    KrogerNotificationsService,
+    // KrogerNotificationsService,
     AuthResolve,
     NavService,
     UserService,
