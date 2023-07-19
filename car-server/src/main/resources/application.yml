@@ -47,7 +47,7 @@ kroger:
 security:
   oauth2:
     client:
-      clientId: 0000--local
+      clientId: 3927-ngppui-local
       clientSecret: secret
       accessTokenUri: https://federation.kroger.com/identity/oauth/token
       userAuthorizationUri: https://federation.kroger.com/identity/oauth/authorize
