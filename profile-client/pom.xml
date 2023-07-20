@@ -25,7 +25,7 @@
 				<configuration>
 					<filesets>
 						<fileset>
-							<directory>${basedir}/dist</directory>
+							<directory>${basedir}/dist/user-profile-ui-decouple-poc</directory>
 						</fileset>
 					</filesets>
 				</configuration>
@@ -46,7 +46,7 @@
 							<outputDirectory>${project.build.directory}/classes/static</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${basedir}/dist</directory>
+									<directory>${basedir}/dist/user-profile-ui-decouple-poc</directory>
 								</resource>
 							</resources>
 						</configuration>
