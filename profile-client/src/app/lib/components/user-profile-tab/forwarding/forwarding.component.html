@@ -1,0 +1,34 @@
+<kds-message class="m-6" [kind]="messageKind" *ngIf="showMessage">{{messageText}}</kds-message>
+
+<!-- <kds-toggle (click)="updateProfileUserForwardFlag()" checked>
+</kds-toggle> -->
+<!-- class is disabled until toggle is added -->
+<!-- <div class="forward-button-container">
+  <ers-button label="Create Forward" btnType="button" (clickEvent)="createForward()" iconPlacement="left"
+    icon="kds-icon-plus" btnDisplayType="favorable"></ers-button>
+</div> -->
+<div>
+  <ng-container *ngIf="userProfile.username; else noUserProfile">
+    <ers-button label="Create Forward" btnType="button" (clickEvent)="createForward()" iconPlacement="left"
+      icon="kds-icon-plus" btnDisplayType="favorable"></ers-button>
+  </ng-container>
+  <ng-template #noUserProfile>
+    <span>You must create a profile first!
+    </span>
+  </ng-template>
+</div>
+
+<br>
+
+<ngpp-forward-create-edit-modal *ngIf="showForwardModal" [showModal]="showForwardModal"
+  (modalClose)="handleForwardModalClose()" [forwardUser]="selectedForwardUser"
+  (submitForm)="onForwardFormSubmit($event)" [userProfile]="userProfile">
+</ngpp-forward-create-edit-modal>
+
+<div class="forward-card-container">
+  <ng-container *ngFor="let forwardUser of forwardUsers">
+    <ngpp-forward-card class="forward-card" (forwardUserEvent)="editForward($event)"
+      (forwardUserUpdateEvent)="onForwardUserUpdate($event)" (forwardUserDeleteEvent)="onForwardFormCardDelete($event)"
+      [forwardUser]="forwardUser"></ngpp-forward-card>
+  </ng-container>
+</div>

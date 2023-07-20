@@ -1,0 +1,102 @@
+<p-dialog [(visible)]="showModal" [modal]="true" [draggable]=false [responsive]="true" [resizable]="true"
+  [closable]=true (onHide)="handleModalClose()" [blockScroll]="true" styleClass="modal-box">
+
+  <p-header>
+    <kds-icon-send tabindex="0"></kds-icon-send>
+    <span class="modal-title">Forward</span>
+  </p-header>
+
+  <kds-message class="m-3" [kind]="messageKind" *ngIf="showMessage">{{messageText}}</kds-message>
+
+  <form #form="ngForm">
+
+    <div class="form-group">
+      <label-content>
+        <label>Search</label>
+      </label-content>
+      <ers-filter-search (inputChanged)="handleSearchInputChange($event)" [(model)]="searchText"></ers-filter-search>
+      <div *ngIf="profiles">
+        <div class="foward-search-container">
+          <div *ngFor="let profile of profiles">
+            <span class="right click normal" (click)="onSelectUser(profile)">{{profile.firstName}} {{profile.lastName}}
+              {{profile.emailAddress}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error': emailAddress.invalid && emailAddress.touched }">
+      <label-content>
+        <label>Forward To</label>
+      </label-content>
+      <input type="text" editable=false class="form-control" name="emailAddress" [(ngModel)]="forwardUser.emailAddress"
+        #emailAddress="ngModel" placeholder="foward.email@kroger.com" required>
+    </div>
+
+    <fieldset>
+      <kds-text tag="legend" class="mb-8">Only send Notifications during:</kds-text>
+      <kds-label class="mb-8">
+        <kds-radio ngDefaultControl [(ngModel)]="forwardUser.forwardMessagesAnytime"
+          [checked]="forwardUser.forwardMessagesAnytime" [value]="true" name="forwardMessagesAnytime"
+          #forwardMessagesAnytime="ngModel">
+        </kds-radio>
+        Anytime
+      </kds-label>
+      <kds-label class="mb-8">
+        <kds-radio ngDefaultControl [(ngModel)]="forwardUser.forwardMessagesAnytime"
+          [checked]="forwardUser.forwardMessagesAnytime" [value]="false" name="forwardMessagesAnytime"
+          #forwardMessagesAnytime="ngModel">
+        </kds-radio>
+        Custom Time Period
+      </kds-label>
+    </fieldset>
+
+    <div class="form-group">
+      <div *ngIf="!forwardUser.forwardMessagesAnytime">
+        <div>
+          <label-content>
+            <label>Start Time</label>
+          </label-content>
+          <div class="time-container">
+            <p-calendar class="time-child" name="startDate" [(ngModel)]="startDate" showIcon="true">
+            </p-calendar>
+            <p-calendar class="time-child" name="startTime" [(ngModel)]="startTime" [timeOnly]="true" class="timer"
+              [inline]="true" hourFormat="12" showTime="true">
+            </p-calendar>
+          </div>
+        </div>
+        <div>
+          <label-content>
+            <label>End Time</label>
+          </label-content>
+          <div class="time-container">
+            <p-calendar class="time-child" name="endDate" [(ngModel)]="endDate" showIcon="true"></p-calendar>
+            <p-calendar class="time-child" name="endTime" [(ngModel)]="endTime" [timeOnly]="true" class="timer"
+              [inline]="true" hourFormat="12" showTime="true">
+            </p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <kds-label class="mb-16">
+        <kds-toggle ngDefaultControl name="forwardMessages" [(ngModel)]="forwardUser.forwardMessages" checked>
+        </kds-toggle>
+        Forward Messages
+      </kds-label>
+    </div>
+    <!-- <div class="form-group">
+      <div *ngIf="forwardUser.customForwardNotifications">
+        User has custom notifications. This should probably use the users current setup
+        and only allow to select/deselect notification types.
+      </div>
+    </div> -->
+
+  </form>
+
+  <p-footer>
+    <ers-button label="Save" [disabled]="form.invalid" btnType="button" (clickEvent)="onSubmit()"></ers-button>
+    <ers-button label="Cancel" btnType="button" (clickEvent)="onCancel()" btnDisplayType="secondary"></ers-button>
+  </p-footer>
+</p-dialog>

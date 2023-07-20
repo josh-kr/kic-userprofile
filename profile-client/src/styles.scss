@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+// UX Catalog Variables - Buttons
+$kroger-danger: #D8534F;
+$kroger-warning: #EFAD4D;
+$kroger-success: #5BB75B;
+$grid-gray: #EBEDF0;
+$krogerBlue: #0068B3;
+$krogerGray2: #ACACAC;
+$kroger-white: #ffffff;
+$krogerGrayDarker: #555555;
+$tooltipBorderStyle: 1px solid #C2C2C2 !important;
+
+html {
+    font-size: unset !important;
+    body {
+        font-size: unset !important;
+    }
+}
+label {
+  font-weight: normal;
+}

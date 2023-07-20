@@ -1,0 +1,28 @@
+<kds-message class="m-6" [kind]="messageKind" *ngIf="showMessage">{{messageText}}</kds-message>
+
+<div>
+  <ng-container *ngIf="userProfile.username; else noUserProfile">
+    <ers-button label=" Create Subscription" btnType="button" (clickEvent)="addSubscritpion()" iconPlacement="left"
+      icon="kds-icon-plus" btnDisplayType="favorable">
+    </ers-button>
+  </ng-container>
+  <ng-template #noUserProfile>
+    <span>You must create a profile first!
+    </span>
+  </ng-template>
+</div>
+<br>
+
+<ngpp-subscription-modal *ngIf="showSubscriptionModal" [showModal]="showSubscriptionModal"
+  (modalClose)="handleSubscriptionModalClose()" [mySubscription]="selectedSubscription"
+  (submitForm)="onSubscriptionModalSubmit($event)">
+</ngpp-subscription-modal>
+
+<div class="subscription-card-container">
+  <ng-container *ngFor="let subscription of subscriptions">
+    <ngpp-subscription-card class="subscription-card" (subscriptionEvent)="onEditSubscription($event)"
+      (subscriptionDeleteEvent)="onDeleteSubscription($event)" (subscriptionUpdateEvent)="onUpdateSubscription($event)"
+      [mySubscription]="subscription">
+    </ngpp-subscription-card>
+  </ng-container>
+</div>

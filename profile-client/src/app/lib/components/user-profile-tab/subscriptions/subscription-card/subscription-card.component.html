@@ -1,0 +1,44 @@
+<p-card>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-5">
+      <label>Domain</label>
+      <div>{{mySubscription.domain}}</div>
+    </div>
+    <div class="ui-grid-col-5">
+      <label>Method</label>
+      <div>{{mySubscription.deliveryVehicleValues}}</div>
+    </div>
+    <div class="ui-grid-col-2">
+      <icon-right-first>
+        <kds-icon-edit (click)="editSubscription()" tabindex="0" color="interactive"></kds-icon-edit>
+      </icon-right-first>
+
+      <icon-right-second>
+        <kds-icon-trash (click)="deleteSubscription()" tabindex="0" color="interactive"></kds-icon-trash>
+      </icon-right-second>
+    </div>
+  </div>
+  <br>
+  <div class="type-container ui-grid-row">
+    <label>Event Types</label>
+    <div *ngFor="let type of mySubscription.eventTypeValues">{{type | splitLast:'|'}}</div>
+  </div>
+  <br>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-6">
+      <label>Frequency</label>
+      <div>{{mySubscription.frequency}}</div>
+    </div>
+    <div class="ui-grid-col-6">
+      <label>Notification Types</label>
+      <div>{{mySubscription.notificationTypeValues}}</div>
+    </div>
+  </div>
+  <div class="card-footer ui-grid-row">
+    <kds-label class="mb-16">
+      <kds-toggle ngDefaultControl (click)="updateSubscriptionDisturbFlag()" [(ngModel)]="mySubscription.doNotDisturb">
+      </kds-toggle>
+      Do Not Disturb
+    </kds-label>
+  </div>
+</p-card>

@@ -1,0 +1,31 @@
+<div class="panel-container">
+
+  <div class="content-container">
+    <kds-message [kind]="messageKind" *ngIf="showMessage">{{messageText}}</kds-message>
+    <h4>Notifications</h4>
+
+    <div *ngIf="twoDayNotifications.length > 0">
+      <h4>2 Days</h4>
+      <div *ngFor="let notification of twoDayNotifications">
+        <ngpp-notification-card (userNotificationAcknowledgeEvent)="onAcknowledgeNotification($event)"
+          [userNotification]="notification"></ngpp-notification-card>
+      </div>
+    </div>
+    <div *ngIf="fiveDayNotifications.length > 0">
+      <h4>5 Days</h4>
+      <div *ngFor="let notification of fiveDayNotifications">
+        <ngpp-notification-card (userNotificationAcknowledgeEvent)="onAcknowledgeNotification($event)"
+          [userNotification]="notification"></ngpp-notification-card>
+      </div>
+    </div>
+    <div *ngIf="tenDayNotifications.length > 0">
+      <h4>10 Days</h4>
+      <div *ngFor="let notification of tenDayNotifications">
+        <ngpp-notification-card (userNotificationAcknowledgeEvent)="onAcknowledgeNotification($event)"
+          [userNotification]="notification"></ngpp-notification-card>
+      </div>
+    </div>
+
+  </div>
+
+</div>

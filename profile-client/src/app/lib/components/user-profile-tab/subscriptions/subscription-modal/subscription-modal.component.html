@@ -1,0 +1,104 @@
+<p-dialog [(visible)]="showModal" modal=true [draggable]=false [resizable]="false" [responsive]="true" [closable]=true
+  (onHide)="handleModalClose()" [blockScroll]="true" styleClass="modal-box">
+
+  <p-header *ngIf="isEdit">
+    <kds-icon-edit tabindex="0"></kds-icon-edit>
+    <span class="modal-title">Edit Subscription</span>
+  </p-header>
+  <p-header *ngIf="!isEdit">
+    <kds-icon-create-new tabindex="0"></kds-icon-create-new>
+    <span class="modal-title">Create Subscription</span>
+  </p-header>
+
+  <kds-message class="m-3" [kind]="messageKind" *ngIf="showMessage">{{messageText}}</kds-message>
+
+  <form #form="ngForm">
+    <div class="form-group">
+      <ers-dropdown name="domain" label="Domain" [inputId]="domain" [items]="domainOptions"
+        (selectionChange)="onDomainChange($event)" [(ngModel)]="mySubscription.domain" #domain="ngModel" required
+        [emitOnlyValue]=true #domainDropdown>
+      </ers-dropdown>
+      <span class="ers-error" *ngIf="domain.invalid">Domain is required.</span>
+    </div>
+    <div class="form-group">
+      <label class="font-bold">Delivery Methods</label>
+      <div>
+        <!-- <div class="flex-checkbox" *ngFor="let delivery of deliveryOptions">
+          <div>
+          <p-checkbox name="deliveryVehicles" value="{{delivery.value}}" label="{{delivery.label}}"
+            inputId="{{delivery.value}}" [ngModel]="mySubscription.deliveryVehicleValues"
+            (ngModelChange)="mySubscription.deliveryVehicleValues=$event" #deliveryVehicles="ngModel" required>
+          </p-checkbox>
+        </div>
+        </div> -->
+        <kds-label class="ml-8" *ngFor="let delivery of deliveryOptions">
+          <kds-checkbox class="mr-8 delivery-type-checkbox"
+            [ngClass]="{'error': mySubscription.domain && !(mySubscription.deliveryVehicleValues.length>0)}"
+            name="deliveryVehicles" value="{{delivery.value}}" inputId="{{delivery.value}}"
+            checked="{{mySubscription.deliveryVehicleValues.indexOf(delivery.value)!==-1}}"
+            (change)="onDeliveryTypeSelected(delivery.value, $event.srcElement.checked)"
+            [disabled]="isListCostDomain && (delivery.value==='sms' || delivery.value==='email')" required>
+          </kds-checkbox>
+          {{delivery.label}}
+        </kds-label>
+        <!-- <p-checkbox label="All" (onChange)="onAllSelected($event, mySubscription.deliveryVehicleValues)">
+        </p-checkbox> -->
+      </div>
+      <!-- <fieldset class="kds-checkbox-options">
+        <kds-label>
+          <kds-checkbox>
+          </kds-checkbox>
+          Check all
+        </kds-label>
+        <kds-label ngDefaultControl class="ml-8" *ngFor="let delivery of deliveryOptions">
+          <kds-checkbox class="mr-8" name="deliveryVehicles" value="{{delivery.value}}" inputId="{{delivery.value}}"
+            [ngModel]="mySubscription.deliveryVehicleValues"
+            (ngModelChange)="mySubscription.deliveryVehicleValues=$event" #deliveryVehicles="ngModel" required>
+          </kds-checkbox>
+          {{delivery.label}}
+        </kds-label>
+      </fieldset> -->
+      <!-- <span class="help-block" *ngIf="deliveryVehicles?.invalid && deliveryVehicles?.touched">Delivery Method is
+        required.</span> -->
+    </div>
+
+    <div class="form-group">
+      <ers-dropdown name="eventTypes" label="Event Types" [inputId]="eventTypes" [items]="eventTypeOptions"
+        [isMulti]="true" [(ngModel)]="mySubscription.eventTypeValues" #eventTypes="ngModel" required
+        [emitOnlyValue]=true (selectionChange)="onEventSelectionChange($event)" #eventDropdown>
+      </ers-dropdown>
+      <span class="ers-error" *ngIf="eventTypes?.invalid">Event Type is required.</span>
+    </div>
+
+    <div class="form-group">
+      <ers-dropdown name="frequency" label="Frequency" [inputId]="frequency" [items]="frequencyOptions"
+        [(ngModel)]="mySubscription.frequency" #frequency="ngModel" required [emitOnlyValue]=true #frequencyDropdown>
+      </ers-dropdown>
+      <span class="ers-error" *ngIf="frequency.invalid">Frequency is required.</span>
+    </div>
+
+    <div class="form-group">
+      <ers-dropdown name="notificationTypes" label="Notification Types" [inputId]="eventTypes"
+        [items]="notificationTypeOptions" [isMulti]="true" [(ngModel)]="mySubscription.notificationTypeValues"
+        #notificationTypes="ngModel" required [emitOnlyValue]=true #notificationDropdown>
+      </ers-dropdown>
+      <span class="ers-error" *ngIf="notificationTypes.invalid">Notification Type is required.</span>
+    </div>
+
+    <kds-label *ngIf="isEdit" class="mb-16">
+      <kds-toggle ngDefaultControl name="doNotDisturb" [(ngModel)]="mySubscription.doNotDisturb"
+        #doNotDisturb="ngModel">
+      </kds-toggle>
+      Do Not Disturb
+    </kds-label>
+
+  </form>
+
+  <p-footer>
+    <ers-button label="Save" btnType="button" (clickEvent)="onSubmit()"
+      [disabled]="form.invalid ||  !(mySubscription.deliveryVehicleValues?.length>0)">
+    </ers-button>
+    <ers-button label="Cancel" btnType="button" (clickEvent)="onCancel()" btnDisplayType="secondary"></ers-button>
+  </p-footer>
+
+</p-dialog>

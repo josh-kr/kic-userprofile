@@ -1,0 +1,81 @@
+buildscript {
+    ext {
+        nodePluginVersion = '1.3.1'
+    }
+    repositories {
+        mavenLocal()
+        maven { url "http://artifactory.kroger.com/artifactory/plugins-release" }
+    }
+    dependencies {
+        classpath "com.moowork.gradle:gradle-node-plugin:${nodePluginVersion}"
+    }
+}
+
+apply plugin: 'com.moowork.node'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'base'
+
+version '0.0.1'
+buildDir = 'dist'
+
+node {
+  // Version of node to use.
+  version = '13.8.0'
+
+  // Base URL for fetching node distributions
+  distBaseUrl = 'http://artifactory.kroger.com/artifactory/nodejs-dist/'
+
+  // If true, it will download node using above parameters.
+  // If false, it will try to use globally installed node.
+  download = true
+}
+
+task install(type: NpmTask) {
+    args = ['install']
+}
+// task lint(type: NpmTask) {
+//     args = ['run', 'lint']
+// }
+task buildDist(type: NpmTask) {
+    // Choose either prod or dev packaging
+    // args = ['run', "build-${System.env.ENV?System.env.ENV:'prod'}"]
+    args = ['run', "build"]
+}
+task packageNpmClient(type: Zip) {
+    dependsOn 'install'
+    // dependsOn 'lint'
+    dependsOn 'buildDist'
+    // tasks.findByName('lint').mustRunAfter 'install'
+    // tasks.findByName('buildDist').mustRunAfter 'lint'
+    tasks.findByName('buildDist').mustRunAfter 'install'
+
+    baseName 'profile-client'
+    extension 'jar'
+    destinationDir file("${projectDir}/build")
+    from('dist') {
+        into 'static'
+    }
+}
+
+// declare a dedicated scope for publishing the packaged JAR
+configurations {
+    npmResources
+}
+
+configurations.default.extendsFrom(configurations.npmResources)
+
+// expose the artifact created by the packaging task
+artifacts {
+    npmResources(packageNpmClient.archivePath) {
+        builtBy packageNpmClient
+        type 'jar'
+    }
+}
+
+assemble.dependsOn(packageNpmClient)
+
+clean {
+    delete packageNpmClient.archivePath
+}
+

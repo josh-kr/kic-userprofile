@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.kroger.car</groupId>
-	<artifactId>car-parent</artifactId>
+	<groupId>com.kroger.profile</groupId>
+	<artifactId>profile-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>car Parent</name>
+	<name>Profile Parent</name>
 	<description>EAF Project for Spring Boot</description>
 
 	<parent>
@@ -25,7 +25,7 @@
 	</properties>
 
 	<modules>
-		<module>car-client</module>
-		<module>car-server</module>
+		<module>profile-client</module>
+		<module>profile-server</module>
 	</modules>
 </project>
