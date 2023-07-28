@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  baseUrl = 'https://next.kroger.com';
+  baseUrl = '';
   authConfig = {
     baseUrl: this.baseUrl,
     meEndpoint: this.baseUrl + '/api/me',
@@ -22,6 +22,7 @@ export class AppComponent {
   public hideMenu = true;
   public menuData: IMenuData[];
   title = 'user-profile-ui-decouple-poc';
+
   constructor(
     private authService: AuthService,
     private notify: KrogerNotificationsService,
@@ -55,7 +56,9 @@ export class AppComponent {
     } else {
       this.router.navigate([event['detail']['link']]);
     }
-
+  }
+  login() {
+    this.authService.login()
   }
 
 }
