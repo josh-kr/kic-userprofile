@@ -17,7 +17,7 @@ export class SubscriptionService {
 
   constructor(private http: HttpClient) { }
 
-  getSubscriptions(profileId: number): Promise<any> {
+  getSubscriptions(profileId: Number): Promise<any> {
     const response = this.http.get('/user-profile-api/v1/subscription?profileId=' + profileId).pipe(
       catchError(this.handleError)
     )
@@ -40,7 +40,7 @@ export class SubscriptionService {
     return response;
   }
 
-  async getEventTypes(domain: string): Promise<any> {
+  async getEventTypes(domain: String): Promise<any> {
     const response = await this.http.get('/user-profile-api/v1/subscription/labels/notification-event-types/' + domain).pipe(
       catchError(this.handleError)
     )

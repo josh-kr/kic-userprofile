@@ -16,14 +16,14 @@ const httpOptions = {
 })
 export class ProfileService {
 
-  private userProfile: BehaviorSubject<UserProfile>;
+  private _userProfile: BehaviorSubject<UserProfile>;
   public userProfile$: Observable<UserProfile>;
 
   private userHasBeenFetched = false;
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.userProfile = new BehaviorSubject<UserProfile>(new UserProfile());
-    this.userProfile$ = this.userProfile.asObservable();
+    this._userProfile = new BehaviorSubject<UserProfile>(new UserProfile());
+    this.userProfile$ = this._userProfile.asObservable();
   }
 
   getUserProfile() {
@@ -47,7 +47,7 @@ export class ProfileService {
     return this.http.get(url).pipe(map((response: any) => {
       // if (response) {  // todo error check
       // }
-      this.userProfile.next(response);
+      this._userProfile.next(response);
       return response;
     }));
   }
@@ -60,7 +60,7 @@ export class ProfileService {
       .pipe(
         map((response: any) => {
           if (response) {
-            this.userProfile.next(response);
+            this._userProfile.next(response);
           }
           return response;
         }),

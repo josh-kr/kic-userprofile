@@ -1,4 +1,4 @@
-package com.kroger.profile.car.domain;
+package com.kroger.car.car.domain;
 
 import static com.kroger.commons.data.validation.ObjectValidators.notNull;
 import static com.kroger.commons.data.validation.StringValidators.notEmpty;

@@ -6,16 +6,15 @@ import { Subject } from 'rxjs/Subject';
 })
 export class LoadingScreenService {
 
+  private _loading = false;
   loadingStatus: Subject<boolean> = new Subject();
-  constructor() {
-    this.loading = false;
-  }
+
   get loading(): boolean {
-    return this.loading;
+    return this._loading;
   }
 
   set loading(value) {
-    this.loading = value;
+    this._loading = value;
     this.loadingStatus.next(value);
   }
 

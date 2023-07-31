@@ -1,0 +1,67 @@
+@import "../../../../../assets/styles/styles.less";
+
+label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.modal-box {
+  width: unset;
+  min-width: 450px !important;
+  //height: calc(100vh - 250px);
+  // font-size: @body3 !important;
+  // font-family: @baseFont !important;
+  border-radius: 6px;
+
+  .ui-dialog-content {
+    height: calc(100% - 60px);
+    overflow: auto;
+  }
+
+  .ui-dialog-title {
+    font-size: @body3;
+    font-weight: bold;
+  }
+
+  .ui-dialog-titlebar-icon {
+    font-size: 20px;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+
+  .delivery-type-checkbox{
+
+    .kds-Checkbox:focus{
+      outline: none;    
+    }
+
+    .kds-Checkbox{
+      cursor: pointer;
+    }
+
+    .kds-Checkbox:disabled{
+      cursor: not-allowed;
+    }
+}
+
+ .error{
+    .kds-Checkbox{
+      border: 1px solid #a80000;;
+    }
+  }
+}
+
+.flex-box{
+    display: flex;
+    flex-direction: column;
+
+    .flex-checkbox {
+        padding-top: 10px!important;
+        padding-left: 10px!important;
+        align-content: space-around;
+    }
+
+}

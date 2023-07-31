@@ -1,4 +1,4 @@
-package com.kroger.profile.car.domain;
+package com.kroger.car.car.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
